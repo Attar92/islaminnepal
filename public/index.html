@@ -1,0 +1,4346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
+    <meta
+      name="description"
+      content="Explore history of Islam in Nepal and learn true teachings of Quran and Ahadith"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
+      rel="stylesheet"
+    />
+    <title>Islam in Nepal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #0d5a2e;
+        --secondary: #ffca1e;
+        --light: #f8f9fa;
+        --dark: #1a1a1a;
+        --accent: #2e7d32;
+        --transition: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+        color: var(--dark);
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        animation: slideUp 1.2s ease;
+      }
+
+      /* Enhanced Navbar Styles */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+        background: transparent;
+      }
+
+      .navbar.scrolled {
+        padding: 10px 5%;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .logo-img {
+        height: 60px;
+        margin-right: 10px;
+        transition: transform 0.3s ease;
+        border-radius: 9px;
+      }
+
+      .logo:hover .logo-img {
+        transform: scale(1.05);
+      }
+
+      .logo-text {
+        font-family: "Amiri", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: white;
+        transition: color 0.3s ease;
+      }
+
+      .navbar.scrolled .logo-text {
+        color: var(--dark);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        position: relative;
+        padding: 8px 0;
+        transition: color 0.3s ease;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .navbar.scrolled .nav-links a {
+        color: var(--dark);
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary);
+      }
+
+      .nav-links a.active {
+        color: var(--secondary);
+      }
+
+      .nav-links a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--secondary);
+        border-radius: 10px;
+        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .nav-links a:hover::before,
+      .nav-links a.active::before {
+        width: 100%;
+      }
+
+      .nav-icon {
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .nav-links a:hover .nav-icon {
+        transform: translateY(-2px);
+      }
+
+      .sign-in-btn {
+        padding: 10px 25px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .sign-in-btn:hover {
+        transform: translateY(-2px);
+        color: var(--dark);
+        border-color: var(--secondary);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: white;
+        transition: color 0.3s ease;
+        z-index: 1000;
+      }
+
+      .navbar.scrolled .hamburger {
+        color: var(--dark);
+      }
+
+      /* Enhanced Page Transitions */
+      .page-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .page-section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+        transition: var(--transition);
+        z-index: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        will-change: transform, opacity;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.95);
+      }
+
+      .page-section.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 2;
+        position: relative;
+        transform: scale(1);
+      }
+
+      .page-section.fade-out {
+        opacity: 0;
+        transform: scale(1.05);
+      }
+
+      .page-section.fade-in {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Home Hero (Full Height) */
+      .home-hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 5%;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("assets/bg.jpg") no-repeat center center/cover;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Shared Page Hero (70% Height) */
+      .shared-page-hero {
+        height: 75vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3% 5% 0 5%;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("assets/bg.jpg") no-repeat center center/cover;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s ease;
+      }
+
+      .shared-page-hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+        font-family: "Amiri", serif;
+        transition: all 0.5s ease;
+      }
+
+      .shared-page-hero p {
+        font-size: 1.3rem;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        transition: all 0.5s ease;
+      }
+
+      /* Enhanced Quran Verse Styling */
+      .home-quran-verse {
+        max-width: 800px;
+        margin: 0 auto 40px;
+        padding: 30px;
+        backdrop-filter: blur(100px);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 2s ease;
+        position: relative;
+        z-index: 10;
+      }
+
+      .arabic {
+        font-family: "Amiri", serif;
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        line-height: 1.8;
+      }
+
+      .translation {
+        font-size: 1.2rem;
+        font-style: italic;
+        margin-bottom: 15px;
+      }
+
+      .reference {
+        font-weight: bolder;
+        font-size: 1.3rem;
+        opacity: 0.8;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        font-family: "Amiri", serif;
+        animation: slideUp 1s ease;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        animation: slideUp 1.2s ease;
+      }
+
+      .scroll-down {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+        cursor: pointer;
+      }
+
+      .scroll-down i {
+        font-size: 2rem;
+        color: white;
+      }
+
+      /* Content Containers */
+      .content-container {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+        min-height: 100vh;
+      }
+
+      .home-content {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+      }
+
+      /* History Section */
+      .history-section {
+        padding: 100px 5% 50px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+        font-family: "Amiri", serif;
+        font-size: 2.5rem;
+        color: var(--primary);
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: var(--secondary);
+      }
+
+      .history-item {
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .history-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .history-text {
+        flex: 1;
+        padding: 30px;
+      }
+
+      .history-image {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.5s ease;
+      }
+
+      .history-image:hover {
+        transform: scale(1.03);
+      }
+
+      .history-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .history-item:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      .history-item h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: var(--primary);
+        font-family: "Amiri", serif;
+      }
+
+      .history-item p {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
+
+      /* Read More Section */
+      .read-more-section {
+        padding: 80px 5%;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.7);
+        margin: 10px auto 40px auto;
+        max-width: 1200px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      .read-more-content h3 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        color: var(--primary);
+        font-family: "Amiri", serif;
+      }
+
+      .read-more-content p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #555;
+      }
+
+      .read-more-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(13, 90, 46, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .read-more-btn:hover {
+        background: var(--accent);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(13, 90, 46, 0.4);
+      }
+
+      .read-more-btn:active {
+        transform: translateY(0);
+      }
+
+      .read-more-btn::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
+      }
+
+      .read-more-btn:focus:not(:active)::after {
+        animation: ripple 1s ease-out;
+      }
+
+      /* Content Section */
+      .content-section {
+        padding: 80px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .placeholder-content {
+        text-align: center;
+        padding: 60px 20px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .placeholder-content i {
+        font-size: 4rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+
+      .placeholder-content h3 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: var(--primary);
+        font-family: "Amiri", serif;
+      }
+
+      .placeholder-content p {
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        color: #555;
+      }
+
+      /* Mobile Menu Footer */
+      .mobile-menu-footer {
+        display: none;
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 20px;
+        border-top: 2px solid var(--secondary);
+        position: relative;
+      }
+
+      .nepali-muslims-text {
+        font-family: "Amiri", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Scroll to Top Button */
+      .scroll-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+      }
+
+      .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .scroll-to-top:hover {
+        background: var(--secondary);
+        transform: translateY(-5px);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 60px 5% 30px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 250px;
+        margin-bottom: 30px;
+        padding: 0 15px;
+      }
+
+      .footer-column h4 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: var(--secondary);
+        font-family: "Amiri", serif;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--secondary);
+      }
+
+      .social-links {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        margin-right: 18px;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background: var(--primary);
+        transform: translateY(-5px);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 30px;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0) translateX(-50%);
+        }
+
+        40% {
+          transform: translateY(-20px) translateX(-50%);
+        }
+
+        60% {
+          transform: translateY(-10px) translateX(-50%);
+        }
+      }
+
+      @keyframes ripple {
+        0% {
+          transform: scale(0, 0);
+          opacity: 0.5;
+        }
+
+        20% {
+          transform: scale(25, 25);
+          opacity: 0.3;
+        }
+
+        100% {
+          opacity: 0;
+          transform: scale(40, 40);
+        }
+      }
+
+      @keyframes heroFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Enhanced Responsive Design */
+      @media (max-width: 1200px) {
+        .quran-hero-content {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .quran-column {
+          width: 90%;
+          max-width: 600px;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .history-item,
+        .history-item:nth-child(even) {
+          flex-direction: column;
+        }
+
+        .history-text,
+        .history-image {
+          width: 100%;
+        }
+
+        .hero h1 {
+          font-size: 2.8rem;
+        }
+
+        .shared-page-hero h1 {
+          font-size: 2.8rem;
+        }
+
+        .arabic {
+          font-size: 1.8rem;
+        }
+
+        .quran-column {
+          min-height: 350px;
+        }
+
+        .verse-text {
+          font-size: 1.6rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 15px 20px;
+        }
+
+        .logo-text {
+          font-size: 1.4rem;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 85%;
+          height: 100vh;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          padding-top: 90px;
+          padding-bottom: 50px;
+          transition: right 0.5s ease;
+          z-index: 999;
+          box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .nav-links li {
+          margin: 20px 0px 0px 0px;
+          width: 75%;
+          text-align: center;
+        }
+
+        .nav-links a {
+          color: var(--dark);
+          font-size: 1.2rem;
+          display: block;
+          padding: 15px 20px;
+          border-radius: 12px;
+          transition: all 0.3s ease;
+          justify-content: center;
+          background: rgba(13, 90, 46, 0.05);
+        }
+
+        .nav-links a:hover {
+          background: rgba(13, 90, 46, 0.1);
+          transform: translateX(5px);
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .navbar.mobile-active {
+          background: white;
+        }
+
+        .navbar.mobile-active .logo-text {
+          color: var(--dark);
+        }
+
+        .navbar.mobile-active .hamburger {
+          color: var(--dark);
+        }
+
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+
+        .shared-page-hero h1 {
+          font-size: 2.2rem;
+        }
+
+        /* Fixed Quran verse positioning on mobile */
+        .home-quran-verse {
+          padding: 20px;
+          margin-top: 80px;
+          margin-bottom: 20px;
+          max-width: 90%;
+        }
+
+        .arabic {
+          font-size: 1.5rem;
+        }
+
+        .translation {
+          font-size: 1rem;
+        }
+
+        .shared-page-hero p {
+          font-size: 1rem;
+        }
+
+        .scroll-to-top {
+          bottom: 20px;
+          right: 20px;
+          width: 45px;
+          height: 45px;
+        }
+
+        .read-more-content h3 {
+          font-size: 1.8rem;
+        }
+
+        .read-more-content p {
+          font-size: 1rem;
+        }
+
+        .mobile-menu-footer {
+          display: block;
+          position: absolute;
+          bottom: 3rem;
+          width: 100%;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+
+        /* Quran Hero Mobile */
+        .quran-hero {
+          height: auto;
+          padding: 100px 5% 60px;
+        }
+
+        .quran-column {
+          padding: 25px;
+          min-height: 300px;
+        }
+
+        .verse-text {
+          font-size: 1.4rem;
+        }
+
+        .verse-translation {
+          font-size: 1rem;
+        }
+
+        /* Ensure home hero has enough top padding */
+        .home-hero {
+          padding-top: 80px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .shared-page-hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .shared-page-hero p {
+          font-size: 1rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .history-item h3 {
+          font-size: 1.5rem;
+        }
+
+        .nepali-muslims-text {
+          font-size: 1.7rem;
+        }
+
+        /* Further mobile adjustments for Quran verse */
+        .home-quran-verse {
+          padding: 15px;
+          margin-top: 70px;
+        }
+
+        .arabic {
+          font-size: 1.3rem;
+        }
+
+        .translation,
+        .reference {
+          font-size: 0.9rem;
+        }
+
+        /* Quran Hero Small Mobile */
+        .quran-column {
+          padding: 20px;
+          min-height: 250px;
+        }
+
+        .quran-column h3 {
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        }
+
+        .verse-text {
+          font-size: 1.2rem;
+        }
+
+        .verse-translation {
+          font-size: 0.9rem;
+        }
+
+        .verse-reference {
+          font-size: 0.9rem;
+        }
+      }
+
+      .modal {
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 400px;
+        position: relative;
+        animation: modalSlideIn 0.3s ease;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--dark);
+        transition: color 0.3s ease;
+      }
+
+      .close-modal:hover {
+        color: var(--primary);
+      }
+
+      .modal-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: var(--primary);
+        font-family: "Amiri", serif;
+        font-size: 2rem;
+      }
+
+      .admin-form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .admin-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+
+      .admin-btn:hover {
+        background: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .admin-btn:active {
+        transform: translateY(0);
+      }
+
+      .message {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .message.error {
+        background: #ffebee;
+        color: #c62828;
+        border: 1px solid #ffcdd2;
+      }
+
+      .message.success {
+        background: #e8f5e8;
+        color: #2e7d32;
+        border: 1px solid #c8e6c9;
+      }
+
+      .clarifications-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .allegation-card {
+        background: white;
+        border-radius: 10px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid var(--primary);
+      }
+
+      .allegation-header {
+        margin-bottom: 1.5rem;
+      }
+
+      .allegation-title {
+        font-family: "Amiri", serif;
+        font-size: 1.8rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .allegation-description {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .clarification-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid #e9ecef;
+      }
+
+      .clarification-title {
+        font-size: 1.3rem;
+        color: var(--dark);
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .clarification-content {
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+
+      .clarification-evidence {
+        background: var(--light);
+        padding: 1rem;
+        border-radius: 5px;
+        border-left: 3px solid var(--secondary);
+        font-style: italic;
+        margin-top: 1rem;
+      }
+
+      .evidence-label {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .no-clarifications {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+      }
+
+      .no-clarifications i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #ddd;
+      }
+
+      .clarifications-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .allegation-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid var(--primary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .allegation-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .allegation-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 2px solid #f0f0f0;
+      }
+
+      .allegation-title {
+        font-family: "Amiri", serif;
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        line-height: 1.3;
+      }
+
+      .allegation-misconception {
+        background: #fff3f3;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid #dc3545;
+        margin-bottom: 2rem;
+      }
+
+      .misconception-label {
+        font-weight: 700;
+        color: #dc3545;
+        margin-bottom: 0.5rem;
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      .clarification-content {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        line-height: 1.8;
+      }
+
+      .clarification-label {
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        display: block;
+        font-size: 1.2rem;
+      }
+
+      .evidence-section {
+        background: var(--light);
+        padding: 1.5rem;
+        border-radius: 8px;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .evidence-label {
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .evidence-text {
+        font-style: italic;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .no-clarifications {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #666;
+      }
+
+      .no-clarifications i {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        color: #ddd;
+      }
+
+      .no-clarifications h3 {
+        font-family: "Amiri", serif;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .allegation-card {
+          padding: 1.5rem;
+          margin-bottom: 2rem;
+        }
+
+        .allegation-title {
+          font-size: 1.5rem;
+        }
+
+        .allegation-misconception,
+        .clarification-content {
+          padding: 1rem;
+        }
+      }
+
+      .clarifications-container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .search-container {
+        position: relative;
+      }
+
+      .search-box {
+        position: relative;
+        width: 100%;
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary);
+        z-index: 2;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 15px 20px 15px 50px;
+        border: 2px solid #e0e0e0;
+        border-radius: 50px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 5px 15px rgba(13, 90, 46, 0.1);
+      }
+
+      .allegation-accordion {
+        background: white;
+        border-radius: 15px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8f4ec;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .allegation-accordion:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .allegation-accordion.active {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .accordion-header {
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e8f4ec 100%);
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      .allegation-accordion.active .accordion-header {
+        background: linear-gradient(135deg, var(--primary) 0%, #0e6b3a 100%);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .accordion-title {
+        font-family: "Amiri", serif;
+        font-size: 1.4rem;
+        color: var(--dark);
+        margin: 0;
+        flex: 1;
+        transition: color 0.3s ease;
+      }
+
+      .allegation-accordion.active .accordion-title {
+        color: white;
+      }
+
+      .accordion-icon {
+        font-size: 1.2rem;
+        color: var(--primary);
+        transition: all 0.3s ease;
+        margin-left: 1rem;
+      }
+
+      .allegation-accordion.active .accordion-icon {
+        color: white;
+        transform: rotate(180deg);
+      }
+
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        background: white;
+      }
+
+      .allegation-accordion.active .accordion-content {
+        max-height: 1000px;
+      }
+
+      .accordion-body {
+        padding: 0 2rem;
+      }
+
+      .clarification-content {
+        padding: 2rem 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .clarification-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 1.5rem;
+      }
+
+      .reference-section {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--secondary);
+        margin-top: 1.5rem;
+      }
+
+      .reference-label {
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        display: block;
+        font-size: 1rem;
+      }
+
+      .reference-text {
+        color: #555;
+        font-style: italic;
+        line-height: 1.6;
+      }
+
+      .accordion-footer {
+        padding: 1.5rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .no-clarifications {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #666;
+      }
+
+      .no-clarifications i {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        color: #ddd;
+      }
+
+      .no-clarifications h3 {
+        font-family: "Amiri", serif;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+      }
+
+      .no-results i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #ccc;
+      }
+
+      /* Animation for accordion */
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .allegation-accordion.active .accordion-content {
+        animation: slideDown 0.3s ease;
+      }
+
+      @media (max-width: 768px) {
+        .accordion-header {
+          padding: 1.25rem 1.5rem;
+        }
+
+        .accordion-title {
+          font-size: 1.2rem;
+        }
+
+        .accordion-body {
+          padding: 0 1.5rem;
+        }
+
+        .clarification-content {
+          padding: 1.5rem 0;
+        }
+
+        .clarification-text {
+          font-size: 1rem;
+        }
+      }
+
+      /* Enhanced Login Modal Styles */
+      .login-modal {
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .login-modal-content {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 450px;
+        position: relative;
+        animation: modalSlideIn 0.4s ease;
+        border: 1px solid #e8f4ec;
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .login-logo-img {
+        height: 60px;
+        margin-right: 15px;
+        border-radius: 10px;
+      }
+
+      .login-logo-text {
+        font-family: "Amiri", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .login-title {
+        font-family: "Amiri", serif;
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      .login-subtitle {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      .login-form-group {
+        margin-bottom: 25px;
+        position: relative;
+      }
+
+      .login-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 0.95rem;
+      }
+
+      .login-input {
+        width: 100%;
+        padding: 15px 45px 15px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #fafafa;
+      }
+
+      .login-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 3px rgba(13, 90, 46, 0.1);
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 58px;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-size: 1.1rem;
+      }
+
+      .password-toggle:hover {
+        color: var(--primary);
+      }
+
+      .login-btn {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        box-shadow: 0 5px 15px rgba(13, 90, 46, 0.3);
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(13, 90, 46, 0.4);
+      }
+
+      .login-btn:active {
+        transform: translateY(0);
+      }
+
+      .login-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .login-footer {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .login-footer p {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .security-notice {
+        background: #e8f5e8;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #2e7d32;
+        border: 1px solid #c8e6c9;
+      }
+
+      .security-notice i {
+        margin-right: 5px;
+      }
+
+      .search-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .refresh-btn {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(13, 90, 46, 0.3);
+        position: relative;
+      }
+
+      .refresh-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(13, 90, 46, 0.4);
+      }
+
+      .refresh-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .refresh-btn .fa-spin {
+        animation: fa-spin 1s infinite linear;
+      }
+
+      .refresh-btn-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .cooldown-timer {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #f44336;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      .refresh-btn.loading i {
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes fa-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Message animations */
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .quran-tabs-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .tabs-header {
+        display: flex;
+        background: white;
+        border-radius: 15px;
+        padding: 10px;
+        margin-bottom: 1rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8f4ec;
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 1.2rem 2rem;
+        border: none;
+        background: transparent;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--gray-600);
+      }
+
+      .tab-btn.active {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        box-shadow: 0 4px 15px rgba(13, 90, 46, 0.3);
+      }
+
+      .tab-btn:hover:not(.active) {
+        background: rgba(13, 90, 46, 0.05);
+        color: var(--primary);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .selection-inputs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .input-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .input-group label {
+        font-weight: 600;
+        color: var(--dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .input-group input {
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        width: 40%;
+        height: 2rem;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(13, 90, 46, 0.1);
+      }
+
+      .load-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(13, 90, 46, 0.4);
+      }
+
+      .load-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* NEW: Continuous Quran Display */
+      .quran-continuous-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(13, 90, 46, 0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .quran-continuous-header {
+        padding: 1.5rem 2rem;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quran-continuous-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><text x="50%" y="50%" font-family="Amiri" font-size="30" text-anchor="middle" fill="white">ٱقْرَأْ</text></svg>');
+        background-size: 200px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .quran-continuous-header h3 {
+        margin: 0;
+        font-family: "Amiri", serif;
+        font-size: 1.8rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+
+      .verse-count {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .quran-continuous-content {
+        padding: 2rem;
+        max-height: 70vh;
+        overflow-y: auto;
+        background: #fefefe;
+      }
+
+      .continuous-verse {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+        position: relative;
+      }
+
+      .continuous-verse:hover {
+        background: rgba(13, 90, 46, 0.03);
+      }
+
+      .continuous-verse.active {
+        background: rgba(13, 90, 46, 0.08);
+        border-color: var(--primary);
+      }
+
+      .arabic-line {
+        font-family: "Amiri", serif;
+        font-size: 2.2rem;
+        text-align: right;
+        direction: rtl;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+        padding: 0.5rem 0;
+        position: relative;
+      }
+
+      .translation-line {
+        font-size: 1.1rem;
+        color: #555;
+        padding: 0.8rem 0;
+        border-top: 1px solid rgba(13, 90, 46, 0.1);
+        line-height: 1.6;
+        position: relative;
+      }
+
+      .verse-reference {
+        font-size: 0.9rem;
+        color: var(--gray-600);
+        font-style: italic;
+        text-align: right;
+        margin-top: 0.5rem;
+        font-weight: 600;
+      }
+
+      .verse-number {
+        background: var(--primary);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        vertical-align: super;
+        box-shadow: 0 2px 5px rgba(13, 90, 46, 0.3);
+      }
+
+      /* Special styling for Bismillah */
+      .bismillah-verse {
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          rgba(13, 90, 46, 0.05),
+          rgba(46, 125, 50, 0.08)
+        );
+        border: 2px solid rgba(13, 90, 46, 0.1);
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .bismillah-verse::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><text x="50%" y="50%" font-family="Amiri" font-size="40" text-anchor="middle" fill="%230d5a2e">بِسْمِ</text></svg>');
+        background-size: 150px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .bismillah-verse .arabic-line {
+        font-size: 2.8rem;
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .bismillah-verse .translation-line {
+        background: transparent;
+        border-top: none;
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--primary-dark);
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Enhanced Chapter Navigation */
+      .quran-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        background: rgba(13, 90, 46, 0.05);
+        border-top: 1px solid rgba(13, 90, 46, 0.1);
+        flex-shrink: 0;
+        position: relative;
+      }
+
+      .chapter-nav {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.5rem;
+        border: 2px solid var(--primary);
+        background: white;
+        color: var(--primary);
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(13, 90, 46, 0.15);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chapter-nav::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(13, 90, 46, 0.1),
+          transparent
+        );
+        transition: all 0.6s ease;
+      }
+
+      .chapter-nav:hover::before {
+        left: 100%;
+      }
+
+      .chapter-nav:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(13, 90, 46, 0.3);
+      }
+
+      .chapter-nav:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .chapter-nav:disabled:hover {
+        background: white;
+        color: var(--primary);
+        box-shadow: 0 4px 12px rgba(13, 90, 46, 0.15);
+      }
+
+      /* Progress Indicator */
+      .reading-progress {
+        width: 100%;
+        height: 4px;
+        background: rgba(13, 90, 46, 0.1);
+        position: relative;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 2px;
+        transition: width 0.3s ease;
+        position: relative;
+      }
+
+      .progress-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Enhanced Mobile Styles */
+      @media (max-width: 768px) {
+        .quran-continuous-container {
+          border-radius: 15px;
+        }
+
+        .quran-continuous-header {
+          padding: 1rem 1.5rem;
+          flex-direction: column;
+          gap: 0.5rem;
+          text-align: center;
+        }
+
+        .quran-continuous-header h3 {
+          font-size: 1.4rem;
+        }
+
+        .quran-continuous-content {
+          padding: 1rem;
+          max-height: 60vh;
+        }
+
+        .continuous-verse {
+          padding: 1rem;
+          margin-bottom: 1.5rem;
+          border-radius: 10px;
+        }
+
+        .arabic-line {
+          font-size: 1.8rem;
+        }
+
+        .translation-line {
+          font-size: 1rem;
+        }
+
+        .verse-number {
+          width: 25px;
+          height: 25px;
+          font-size: 0.7rem;
+        }
+
+        .bismillah-verse .arabic-line {
+          font-size: 2.2rem;
+        }
+
+        .quran-navigation {
+          gap: 1rem;
+          padding: 1rem;
+        }
+
+        .chapter-nav {
+          width: 100%;
+          justify-content: center;
+          padding: 0.875rem 1.25rem;
+        }
+
+        .chapter-nav span {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .arabic-line {
+          font-size: 1.6rem;
+        }
+
+        .verse-number {
+          width: 22px;
+          height: 22px;
+          font-size: 0.65rem;
+        }
+
+        .bismillah-verse .arabic-line {
+          font-size: 2rem;
+        }
+
+        .chapter-nav {
+          padding: 0.75rem 1rem;
+        }
+      }
+
+      /* Custom scrollbar */
+      .quran-continuous-content::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .quran-continuous-content::-webkit-scrollbar-track {
+        background: rgba(13, 90, 46, 0.05);
+        border-radius: 4px;
+      }
+
+      .quran-continuous-content::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 4px;
+        transition: background 0.3s ease;
+      }
+
+      .quran-continuous-content::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Loading animation */
+      .loading-verses {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+        gap: 1.5rem;
+      }
+
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(13, 90, 46, 0.1);
+        border-left: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Error toast animation */
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .error-toast {
+        animation: slideInRight 0.3s ease;
+      }
+
+      /* Chapter selection enhancements */
+      .chapter-selection {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8f4ec;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chapter-selection::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .selection-inputs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .input-group {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .input-group label {
+        font-weight: 600;
+        color: var(--dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+      }
+
+      .input-group input {
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #fafafa;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 3px rgba(13, 90, 46, 0.1);
+      }
+
+      .load-btn {
+        grid-column: 1 / -1;
+        justify-self: center;
+        padding: 1rem 2rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(13, 90, 46, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .load-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: all 0.6s ease;
+      }
+
+      .load-btn:hover::before {
+        left: 100%;
+      }
+
+      .load-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(13, 90, 46, 0.4);
+      }
+
+      .load-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      @media (max-width: 768px) {
+        .selection-inputs {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+
+      /* Ahadith Placeholder */
+      .ahadith-placeholder {
+        background: white;
+        border-radius: 15px;
+        padding: 4rem 2rem;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8f4ec;
+      }
+
+      .coming-soon-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--warning), #f57c00);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        margin-top: 1rem;
+        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+      }
+
+      /* Introduction Description */
+      .intro-description {
+        background: white;
+        border-radius: 15px;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8f4ec;
+        line-height: 1.8;
+      }
+
+      .intro-description h3 {
+        font-family: "Amiri", serif;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        text-align: center;
+      }
+
+      .intro-description p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        color: #555;
+      }
+
+      .intro-description p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* NEW: Footer quick links grid for mobile */
+      @media (max-width: 768px) {
+        .footer-column ul {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.5rem;
+        }
+
+        .footer-column ul li {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      /* Introduction Description */
+      .introQuran {
+        font-size: 1.2rem;
+        background-color: white;
+        margin-bottom: 1rem;
+        padding: 1.2rem;
+        border-radius: 15px;
+        text-align: center;
+      }
+      .read {
+        text-align: center;
+        color: var(--primary);
+        text-decoration: underline;
+      }
+      @media (max-width: 768px) {
+        .introQuran p {
+          font-size: 0.9rem;
+        }
+      }
+      .footer-column ol {
+        list-style: none;
+      }
+
+      /* Fix for navbar text color in Quran page */
+      @media (max-width: 1024px) {
+        .page-section.active#quran ~ footer .navbar.scrolled .logo-text,
+        .page-section.active#quran ~ footer .navbar.scrolled .nav-links a,
+        .page-section.active#quran ~ footer .navbar.scrolled .hamburger {
+          color: var(--dark) !important;
+        }
+
+        .page-section.active#quran ~ footer .navbar.scrolled {
+          background: rgba(255, 255, 255, 0.98) !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Logo" class="logo-img" />
+        <div class="logo-text">Islam in Nepal</div>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="#" class="nav-link active" data-target="home">
+            <i class="fas fa-home nav-icon"></i>
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="quran">
+            <i class="fas fa-book-quran nav-icon"></i>
+            Quran & Ahadith
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="clarifications">
+            <i class="fas fa-question-circle nav-icon"></i>
+            Clarifications
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="about">
+            <i class="fas fa-info-circle nav-icon"></i>
+            About us
+          </a>
+        </li>
+        <li class="mobile-menu-footer">
+          <div class="nepali-muslims-text">Nepali Muslims</div>
+          <div class="copyright">
+            &copy; 2025 Islam in Nepal. All rights reserved.
+          </div>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </nav>
+
+    <!-- Page Container -->
+    <div class="page-container">
+      <!-- Home Page -->
+      <section id="home" class="page-section active">
+        <div class="home-hero">
+          <div class="home-quran-verse">
+            <!-- Quran verse will be populated by JavaScript -->
+          </div>
+          <h1>Journey of Islam in Nepal</h1>
+          <p class="hero-subtitle">
+            Discover the rich history how Islam arrived in Nepal through ancient
+            trade routes and the story of the first Nepali Muslims
+          </p>
+          <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+          <h2 class="section-title">History of Islam in Nepal</h2>
+
+          <div class="history-item">
+            <div class="history-text">
+              <h3>Early Trade Routes</h3>
+              <p>
+                Islam first arrived in Nepal through ancient trade routes that
+                connected the Indian subcontinent with Tibet and China. Muslim
+                traders, primarily from Kashmir and Northern India, traveled
+                through Nepal's mountain passes, establishing small settlements
+                along their trade routes.
+              </p>
+              <p>
+                These early Muslim traders were instrumental in facilitating
+                commerce between different regions, dealing in goods such as
+                salt, wool, spices, and precious stones. Their presence in Nepal
+                dates back to at least the 12th century.
+              </p>
+            </div>
+            <div class="history-image">
+              <!-- Placeholder for actual image -->
+              <div
+                style="
+                  background: #e0e0e0;
+                  height: 300px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #666;
+                "
+              >
+                <img src="assets/traderoute.jpg" alt="Ancient Trade Route" />
+              </div>
+            </div>
+          </div>
+
+          <div class="history-item">
+            <div class="history-text">
+              <h3>First Muslim Settlements</h3>
+              <p>
+                Kashmiri Muslim traders entered Nepal during the time of King
+                Ratna Malla and the mosque was built in the time of King Pratap
+                Malla. The mosque has undergone multiple renovations. The
+                existing structure of the mosque dates back to the reign of King
+                Prithvi Narayan Shah. They had supported the king against the
+                Malla dynasty. It was much later after Kashmiri's entry into
+                Nepal that Muslims from Afghanistan, Iran and Middle East joined
+                them.
+              </p>
+              <p>
+                Nepali historians believe that it was Ratna Malla's envoy to
+                Lhasa who actually invited Kashmiri Muslims to Kathmandu in an
+                attempt to profit from the rugs, carpets, shawls and woollen
+                goods they traded between Kashmir, Ladakh and Lhasa. The first
+                batch of Muslims came with a Kashmiri saint who built the first
+                mosque, Kashmiri Taquia, in 1524, according to Shamima Siddika,
+                who authored Muslims of Nepal.
+              </p>
+            </div>
+            <div class="history-image">
+              <!-- Placeholder for actual image -->
+              <div
+                style="
+                  background: #e0e0e0;
+                  height: 400px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #666;
+                "
+              >
+                <img src="assets/masjid-old.jpeg" alt="Panchatakiya Mosque" />
+              </div>
+            </div>
+          </div>
+
+          <div class="history-item">
+            <div class="history-text">
+              <h3>Integration and Growth</h3>
+              <p>
+                Over centuries, the Muslim community in Nepal grew through both
+                natural increase and continued migration. They developed a
+                unique identity that blended Islamic traditions with local
+                Nepali culture.
+              </p>
+              <p>
+                Despite being a religious minority, Nepali Muslims have played
+                significant roles in various sectors including business,
+                education, and public service. The community has maintained its
+                religious identity while contributing to Nepal's diverse social
+                fabric.
+              </p>
+            </div>
+            <div class="history-image">
+              <!-- Placeholder for actual image -->
+              <div
+                style="
+                  background: #e0e0e0;
+                  height: 300px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #666;
+                "
+              >
+                <img src="assets/interfaith.jpg" alt="PEACE" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Read More Section -->
+        <div class="read-more-section">
+          <div class="read-more-content">
+            <h3>Want to Know More About Us?</h3>
+            <p>
+              Discover our mission, team, and the work we do to preserve the
+              authentic history of Islam in Nepal and promote understanding of
+              Islamic teachings.
+            </p>
+            <button class="read-more-btn" data-target="about">
+              Read More About Us
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="quran" class="page-section">
+        <div class="shared-page-hero">
+          <h1>Quran & Ahadith</h1>
+          <p>
+            Explore the divine words of Allah in the Holy Quran and authentic
+            teachings from the Prophet Muhammad (PBUH)
+          </p>
+        </div>
+        <div class="content-container">
+          <div class="content-section">
+            <!-- Introduction Description -->
+            <h2 class="section-title">Quran and Ahadith</h2>
+
+            <div class="introQuran">
+              <h4 class="read">Please read this description</h4>
+              <p id="aboutQuran">
+                Muslims believe that Quran is direct message from God to
+                Humanity, revealed to Prophet Muhammad (PBUH) over 23 years of
+                time. It is unchanged and preserved as it was revealed 1400
+                years ago. However, there are various wrong translations
+                available in the market. We're committed to provide the
+                authentic sources of Holy Quran.
+              </p>
+            </div>
+
+            <div class="quran-tabs-container">
+              <!-- Tabs Navigation -->
+              <div class="tabs-header">
+                <button class="tab-btn active" data-tab="quran-tab">
+                  <i class="fas fa-book-quran"></i>
+                  Quran
+                </button>
+                <button class="tab-btn" data-tab="ahadith-tab">
+                  <i class="fas fa-book"></i>
+                  Ahadith
+                </button>
+              </div>
+
+              <!-- Quran Tab Content -->
+              <div id="quran-tab" class="tab-content active">
+                <div class="quran-reader-container">
+                  <!-- Chapter Selection -->
+                  <div class="chapter-selection">
+                    <div class="selection-inputs">
+                      <div class="input-group">
+                        <label for="chapterInput">
+                          <i class="fas fa-list-ol"></i>
+                          Chapter No.
+                        </label>
+                        <input
+                          type="number"
+                          id="chapterInput"
+                          min="1"
+                          max="114"
+                          placeholder="(1-114)"
+                        />
+                      </div>
+                      <div class="input-group">
+                        <label for="verseInput">
+                          <i class="fas fa-arrow-right"></i>
+                          Verse No.
+                        </label>
+                        <input
+                          type="number"
+                          id="verseInput"
+                          min="1"
+                          placeholder="(Optional)"
+                        />
+                      </div>
+                      <button id="loadChapterBtn" class="load-btn">
+                        <i class="fas fa-search"></i>
+                        <span id="loadBtnText">Load Chapter</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Continuous Quran Display -->
+                  <div class="quran-continuous-container">
+                    <div class="quran-continuous-header">
+                      <h3 id="chapterTitle">Select a Chapter</h3>
+                      <div class="verse-count" id="verseCount"></div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="reading-progress">
+                      <div
+                        class="progress-bar"
+                        id="readingProgress"
+                        style="width: 0%"
+                      ></div>
+                    </div>
+
+                    <div class="quran-continuous-content" id="versesContainer">
+                      <div class="placeholder-verse">
+                        <i class="fas fa-book-open"></i>
+                        <p>Enter a chapter number above to start reading</p>
+                      </div>
+                    </div>
+
+                    <!-- Enhanced Chapter Navigation -->
+                    <div class="quran-navigation">
+                      <button id="prevChapterBtn" class="chapter-nav" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        <span>Previous Chapter</span>
+                      </button>
+
+                      <button id="nextChapterBtn" class="chapter-nav" disabled>
+                        <span>Next Chapter</span>
+                        <i class="fas fa-chevron-right"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Ahadith Tab Content -->
+              <div id="ahadith-tab" class="tab-content">
+                <div class="ahadith-placeholder">
+                  <div class="placeholder-content">
+                    <i class="fas fa-tools"></i>
+                    <h3>Ahadith Section Coming Soon</h3>
+                    <p>
+                      We are working on compiling authentic Hadith collections
+                      with proper references and explanations. This section will
+                      be available soon insha'Allah.
+                    </p>
+                    <div class="coming-soon-badge">
+                      <i class="fas fa-clock"></i>
+                      Coming Soon
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="clarifications" class="page-section">
+        <div class="shared-page-hero">
+          <h1>Islamic Clarifications</h1>
+          <p>
+            Addressing common misconceptions about Islam with authentic evidence
+            from Quran and Hadith
+          </p>
+        </div>
+        <div class="content-container">
+          <div class="content-section">
+            <h2 class="section-title">Common Misconceptions Clarified</h2>
+            <div
+              class="search-container"
+              style="max-width: 600px; margin: 0 auto 3rem auto"
+            >
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="clarificationSearch"
+                  placeholder="Search clarifications..."
+                  class="search-input"
+                />
+              </div>
+              <div class="refresh-btn-container">
+                <button
+                  id="refreshClarifications"
+                  class="refresh-btn"
+                  style="margin-top: 1rem; width: auto; padding: 12px 20px"
+                >
+                  <i class="fas fa-sync-alt"></i>
+                  <span>Refresh</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="clarificationsContent" class="clarifications-container">
+              <!-- Content will be loaded dynamically -->
+              <div class="placeholder-content">
+                <i class="fas fa-question-circle"></i>
+                <h3>Loading Clarifications...</h3>
+                <p>Please wait while we load the clarifications.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Us Page -->
+      <section id="about" class="page-section">
+        <div class="shared-page-hero">
+          <h1>About Us</h1>
+          <p>
+            Learn more about our mission to preserve and share the authentic
+            history of Islam in Nepal
+          </p>
+        </div>
+        <div class="content-container">
+          <div class="content-section">
+            <h2 class="section-title">Our Mission</h2>
+
+            <div class="placeholder-content">
+              <i class="fas fa-info-circle"></i>
+              <h3>About Us Content</h3>
+              <p>
+                This section will contain information about our organization,
+                mission, and team. Content coming soon.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sign In Page -->
+      <section id="signin" class="page-section"></section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h4>About Us</h4>
+          <p>
+            Dedicated to preserving and sharing the authentic history of Islam
+            in Nepal and promoting understanding of Islamic teachings.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#" class="nav-link" data-target="home">Home</a></li>
+            <li>
+              <a href="#" class="nav-link" data-target="quran"
+                >Quran & Ahadith</a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-target="clarifications"
+                >Clarifications</a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-target="about">About Us</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact Info</h4>
+          <ol>
+            <li><i class="fas fa-map-marker-alt"></i> Pokhara, Nepal</li>
+            <li><i class="fas fa-phone"></i> +977 9827126852</li>
+            <li><i class="fas fa-envelope"></i> mdhabib81900288@gmail.com</li>
+          </ol>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Islam in Nepal. All rights reserved. <br />
+        <a href="#" id="adminSignIn">Admin Sign In</a>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Enhanced Login Modal -->
+    <div id="adminModal" class="login-modal" style="display: none">
+      <div class="login-modal-content">
+        <span class="close-modal">&times;</span>
+
+        <div class="login-header">
+          <div class="login-logo">
+            <img src="assets/logo.png" alt="Logo" class="login-logo-img" />
+            <div class="login-logo-text">Islam in Nepal</div>
+          </div>
+          <h2 class="login-title">Admin Login</h2>
+          <p class="login-subtitle">Access the administration panel</p>
+        </div>
+
+        <form id="loginForm" class="admin-form">
+          <div class="login-form-group">
+            <label for="username">
+              <i class="fas fa-user" style="margin-right: 5px"></i>
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="login-input"
+              placeholder="Enter your username"
+              required
+              autocomplete="username"
+            />
+          </div>
+
+          <div class="login-form-group">
+            <label for="password">
+              <i class="fas fa-lock" style="margin-right: 5px"></i>
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="login-input"
+              placeholder="Enter your password"
+              required
+              autocomplete="current-password"
+            />
+            <button type="button" class="password-toggle" id="passwordToggle">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <button type="submit" class="login-btn" id="loginButton">
+            <i class="fas fa-sign-in-alt" style="margin-right: 8px"></i>
+            Sign In
+          </button>
+        </form>
+
+        <div class="security-notice">
+          <i class="fas fa-shield-alt"></i>
+          Secure admin access only
+        </div>
+
+        <div id="loginMessage" class="message"></div>
+      </div>
+    </div>
+
+    <script>
+      // Quran verses for the home page - including the original hardcoded verse
+      const quranVerses = [
+        {
+          arabic:
+            "وَٱلسَّمَآءَ بَنَيْنَـٰهَا بِأَيْي۟دٍۢ وَإِنَّا لَمُوسِعُون ",
+          translation:
+            "And We have built the heaven with the hands (of Divine Power) and it is We Who give vastness.",
+          science:
+            "🧠 Modern science confirms the universe is expanding — a discovery made centuries after this verse.",
+        },
+        {
+          arabic:
+            "أَوَلَمْ يَرَ ٱلَّذِينَ كَفَرُوٓا۟ أَنَّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ كَانَتَا رَتْقًۭا فَفَتَقْنَـٰهُمَا ۖ",
+          translation:
+            "Did the disbelievers not perceive that the heavens and the earth were closed up (as one piece), We henceforth opened (i.e. parted) them.",
+          science:
+            "🧠 Modern science agrees with the concept of origination of everything from single mass (The Big Bang theory).",
+        },
+        {
+          arabic:
+            "وَجَعَلْنَا مِنَ ٱلْمَآءِ كُلَّ شَىْءٍ حَىٍّ ۖ أَفَلَا يُؤْمِنُونَ",
+          translation:
+            "And We made every living thing from water. So, will they not believe?",
+          science:
+            "🧠 Modern science strongly suggests all known life on Earth is fundamentally linked to water as a key component.",
+        },
+        {
+          arabic:
+            "وَأَنزَلْنَا ٱلْحَدِيدَ فِيهِ بَأْسٌۭ شَدِيدٌۭ وَمَنَـٰفِعُ لِلنَّاسِ",
+          translation:
+            "And We sent down iron, in which there is extreme strength and benefits for the people.",
+          science:
+            "🧠 Iron\’s extraterrestrial origin (from meteorites) was discovered much later.",
+        },
+        {
+          arabic:
+            "وَٱللَّهُ أَخْرَجَكُم مِّنۢ بُطُونِ أُمَّهَـٰتِكُمْ لَا تَعْلَمُونَ شَيْـًۭٔا وَجَعَلَ لَكُمُ ٱلسَّمْعَ وَٱلْأَبْصَـٰرَ وَٱلْأَفْـِٔدَةَ ۙ لَعَلَّكُمْ تَشْكُرُونَ",
+          translation:
+            "And Allah brought you forth from your mothers's wombs; that you did not know anything, and gave me you ears and eyes and hearts; that you may give thanks.",
+          science:
+            "🧠 In embryology, the development of hearing precedes vision — matching this order.",
+        },
+        {
+          arabic:
+            "ثُمَّ ٱسْتَوَىٰٓ إِلَى ٱلسَّمَآءِ وَهِىَ دُخَانٌۭ فَقَالَ لَهَا وَلِلْأَرْضِ ٱئْتِيَا طَوْعًا أَوْ كَرْهًۭا قَالَتَآ أَتَيْنَا طَآئِعِينَ",
+          translation:
+            "He then intended towards (the creation of) the heaven and it was smoke; He henceforth said to it and to earth, 'Both of you present yourselves, willingly or unwillingly.' They said, 'We present ourselves willingly.'",
+          science:
+            "🧠 Matches the scientific concept that the early universe was a hot gaseous mass.",
+        },
+        {
+          arabic: "ٱلشَّمْسُ وَٱلْقَمَرُ بِحُسْبَانٍۢ",
+          translation:
+            "The sun and the moon are programmed (moving on a fixed orbit).",
+          science:
+            "🧠 Modern astronomy confirms both sun and moon have precise orbits.",
+        },
+      ];
+
+      // Function to initialize Quran verse
+      function initializeQuranVerse() {
+        const verseContainer = document.querySelector(".home-quran-verse");
+        if (!verseContainer) return;
+
+        const initialVerse = quranVerses[0];
+        verseContainer.innerHTML = `
+            <div class="arabic">${initialVerse.arabic}</div>
+            <div class="translation">${initialVerse.translation}</div>
+            <div class="reference">${initialVerse.science}</div>
+          `;
+      }
+
+      // Function to change Quran verse
+      let currentVerseIndex = 0;
+      function changeQuranVerse() {
+        const verseContainer = document.querySelector(".home-quran-verse");
+        if (!verseContainer) return; // Only if on home page
+
+        const verse = quranVerses[currentVerseIndex];
+
+        // Fade out
+        verseContainer.style.opacity = 0;
+
+        setTimeout(() => {
+          verseContainer.innerHTML = `
+                      <div class="arabic">${verse.arabic}</div>
+                      <div class="translation">${verse.translation}</div>
+                      <div class="reference">${verse.science}</div>
+                  `;
+
+          // Fade in
+          verseContainer.style.opacity = 1;
+
+          // Update index for next verse
+          currentVerseIndex = (currentVerseIndex + 1) % quranVerses.length;
+        }, 500);
+      }
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+
+        // Show scroll to top button when scrolled down
+        if (window.scrollY > 300) {
+          scrollToTopBtn.classList.add("visible");
+        } else {
+          scrollToTopBtn.classList.remove("visible");
+        }
+      });
+
+      // Scroll animation for history items
+      function checkVisibility() {
+        const historyItems = document.querySelectorAll(".history-item");
+
+        historyItems.forEach((item) => {
+          const itemTop = item.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+
+          if (itemTop < windowHeight - 100) {
+            item.classList.add("visible");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", checkVisibility);
+      window.addEventListener("load", checkVisibility);
+
+      // Enhanced Mobile menu toggle
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      const navbar = document.querySelector(".navbar");
+
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        navLinks.classList.toggle("active");
+        navbar.classList.toggle("mobile-active");
+
+        // Change hamburger icon
+        const icon = hamburger.querySelector("i");
+        if (navLinks.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          navLinks.classList.contains("active") &&
+          !navLinks.contains(e.target) &&
+          !hamburger.contains(e.target)
+        ) {
+          navLinks.classList.remove("active");
+          navbar.classList.remove("mobile-active");
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Enhanced Navigation functionality with fade animations
+      const navLinksElements = document.querySelectorAll(".nav-link");
+      const pageSections = document.querySelectorAll(".page-section");
+      const footerLinks = document.querySelectorAll("footer .nav-link");
+      const readMoreBtn = document.querySelector(".read-more-btn");
+
+      // Track if we're currently in a transition
+      let isTransitioning = false;
+
+      // Main navigation function
+      function navigateToPage(targetPageId) {
+        // Prevent multiple simultaneous transitions
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        // Add this line to setup refresh button when navigating to clarifications
+        if (targetPageId === "clarifications") {
+          setTimeout(setupRefreshButton, 100);
+          setTimeout(updateRefreshButtonState, 100);
+        }
+
+        const currentPage = document.querySelector(".page-section.active");
+        const targetPage = document.getElementById(targetPageId);
+
+        if (!currentPage || !targetPage || currentPage.id === targetPageId) {
+          isTransitioning = false;
+          return;
+        }
+
+        // Update active nav link
+        navLinksElements.forEach((link) => {
+          if (link.dataset.target === targetPageId) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+
+        // Ensure both pages are visible during transition
+        currentPage.style.visibility = "visible";
+        targetPage.style.visibility = "visible";
+
+        // Set higher z-index for target page during transition
+        targetPage.style.zIndex = "3";
+        currentPage.style.zIndex = "2";
+
+        // Force reflow to ensure styles are applied
+        targetPage.offsetHeight;
+
+        // Start fade animations
+        currentPage.classList.add("fade-out");
+        targetPage.classList.add("fade-in");
+
+        // Update active states after transition
+        setTimeout(() => {
+          currentPage.classList.remove("active", "fade-out");
+          targetPage.classList.remove("fade-in");
+          targetPage.classList.add("active");
+
+          // Reset styles
+          currentPage.style.zIndex = "";
+          targetPage.style.zIndex = "";
+
+          // Hide non-active pages to prevent interaction
+          pageSections.forEach((section) => {
+            if (!section.classList.contains("active")) {
+              section.style.visibility = "hidden";
+            }
+          });
+
+          isTransitioning = false;
+
+          // Load clarifications content when navigating to clarifications page
+          if (targetPageId === "clarifications") {
+            setTimeout(loadClarificationsContent, 100);
+          }
+        }, 700);
+
+        // Close mobile menu if open
+        navLinks.classList.remove("active");
+        navbar.classList.remove("mobile-active");
+        const icon = hamburger.querySelector("i");
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+
+        // Scroll to top of page
+        window.scrollTo(0, 0);
+      }
+
+      // Add event listeners to nav links
+      navLinksElements.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          navigateToPage(link.dataset.target);
+        });
+      });
+
+      // Add event listeners to footer links
+      footerLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          navigateToPage(link.dataset.target);
+        });
+      });
+
+      // Add event listener to read more button
+      if (readMoreBtn) {
+        readMoreBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          navigateToPage(readMoreBtn.dataset.target);
+        });
+      }
+
+      // Scroll down button
+      const scrollDownBtn = document.querySelector(".scroll-down");
+      if (scrollDownBtn) {
+        scrollDownBtn.addEventListener("click", function () {
+          window.scrollTo({
+            top: window.innerHeight,
+            behavior: "smooth",
+          });
+        });
+      }
+
+      // Scroll to top functionality
+      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+      scrollToTopBtn.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      let clarificationsController = null;
+
+      async function loadClarificationsContent() {
+        // Cancel previous request if it exists
+        if (clarificationsController) {
+          clarificationsController.abort();
+        }
+
+        // Create new AbortController for this request
+        clarificationsController = new AbortController();
+
+        try {
+          const container = document.getElementById("clarificationsContent");
+
+          // Show loading state
+          container.innerHTML = `
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Loading clarifications...</p>
+        </div>
+      `;
+
+          const response = await fetch("/api/clarifications?" + Date.now(), {
+            signal: clarificationsController.signal,
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (!data.success) {
+            throw new Error(data.message || "Failed to load clarifications");
+          }
+
+          const publishedAllegations = data.data || [];
+
+          if (publishedAllegations.length === 0) {
+            container.innerHTML = `
+          <div class="no-clarifications">
+            <i class="fas fa-info-circle"></i>
+            <h3>No Clarifications Available Yet</h3>
+            <p>We are preparing clarifications for common misconceptions about Islam. Please check back soon.</p>
+          </div>
+        `;
+          } else {
+            renderClarifications(publishedAllegations, container);
+            setupSearchFunctionality(
+              publishedAllegations,
+              container,
+              document.getElementById("clarificationSearch")
+            );
+            setupAccordionFunctionality();
+          }
+        } catch (error) {
+          // Only show error if it's not an abort error
+          if (error.name !== "AbortError") {
+            console.error("Failed to load clarifications:", error);
+            const container = document.getElementById("clarificationsContent");
+            container.innerHTML = `
+          <div class="placeholder-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Failed to Load Content</h3>
+            <p>Please check your internet connection and try again.</p>
+            <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">Error: ${error.message}</p>
+            <button onclick="loadClarificationsContent()" class="read-more-btn" style="margin-top: 15px;">
+              <i class="fas fa-redo"></i> Try Again
+            </button>
+          </div>
+        `;
+          }
+        }
+      }
+
+      // Refresh functionality for main website
+      let refreshButtonInitialized = false;
+      let isRefreshing = false;
+      const REFRESH_COOLDOWN = 10 * 60 * 1000; // 10 minutes in milliseconds
+      let lastRefreshTime = 0;
+      let cooldownInterval = null;
+
+      function setupRefreshButton() {
+        if (refreshButtonInitialized) return;
+
+        const refreshButton = document.getElementById("refreshClarifications");
+        if (
+          refreshButton &&
+          !refreshButton.hasAttribute("data-listener-attached")
+        ) {
+          refreshButton.setAttribute("data-listener-attached", "true");
+
+          // Load saved cooldown state from localStorage
+          const savedCooldown = localStorage.getItem(
+            "clarificationsRefreshCooldown"
+          );
+          if (savedCooldown) {
+            lastRefreshTime = parseInt(savedCooldown);
+            updateRefreshButtonState();
+          }
+
+          refreshButton.addEventListener("click", handleRefreshClick);
+          refreshButtonInitialized = true;
+        }
+      }
+
+      function handleRefreshClick() {
+        if (isRefreshing) {
+          return;
+        }
+
+        const refreshButton = document.getElementById("refreshClarifications");
+        const now = Date.now();
+
+        // Check if still in cooldown
+        if (now - lastRefreshTime < REFRESH_COOLDOWN) {
+          showMessage("Please wait before refreshing again.", "warning");
+          return;
+        }
+
+        // Start refresh process
+        isRefreshing = true;
+        refreshButton.classList.add("loading");
+        refreshButton.disabled = true;
+        refreshButton.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+
+        // Make the fetch request
+        loadClarificationsContent().finally(() => {
+          // Set cooldown after successful refresh
+          lastRefreshTime = Date.now();
+          localStorage.setItem(
+            "clarificationsRefreshCooldown",
+            lastRefreshTime.toString()
+          );
+
+          // Update button state
+          updateRefreshButtonState();
+
+          // Reset loading state
+          isRefreshing = false;
+          refreshButton.classList.remove("loading");
+        });
+      }
+
+      function updateRefreshButtonState() {
+        const refreshButton = document.getElementById("refreshClarifications");
+        if (!refreshButton) return;
+
+        const container = refreshButton.parentElement;
+        let timerEl = container.querySelector(".cooldown-timer");
+
+        const now = Date.now();
+        const timeSinceRefresh = now - lastRefreshTime;
+        const timeLeft = REFRESH_COOLDOWN - timeSinceRefresh;
+
+        if (timeLeft > 0) {
+          // Still in cooldown
+          refreshButton.disabled = true;
+          refreshButton.innerHTML = '<i class="fas fa-clock"></i> Cooldown';
+
+          const minutesLeft = Math.ceil(timeLeft / (60 * 1000));
+
+          if (!timerEl) {
+            timerEl = document.createElement("div");
+            timerEl.className = "cooldown-timer";
+            container.appendChild(timerEl);
+          }
+          timerEl.textContent = minutesLeft;
+
+          // Update timer every minute
+          if (cooldownInterval) clearInterval(cooldownInterval);
+          cooldownInterval = setTimeout(updateRefreshButtonState, 60000);
+        } else {
+          // Cooldown finished
+          refreshButton.disabled = false;
+          refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+
+          if (timerEl) {
+            timerEl.remove();
+          }
+          localStorage.removeItem("clarificationsRefreshCooldown");
+
+          if (cooldownInterval) {
+            clearInterval(cooldownInterval);
+            cooldownInterval = null;
+          }
+        }
+      }
+
+      // Helper function to show messages
+      function showMessage(message, type = "info") {
+        // Create or find message container
+        let messageContainer = document.getElementById("refreshMessage");
+        if (!messageContainer) {
+          messageContainer = document.createElement("div");
+          messageContainer.id = "refreshMessage";
+          messageContainer.style.cssText = `
+              position: fixed;
+              top: 100px;
+              right: 20px;
+              padding: 12px 20px;
+              border-radius: 8px;
+              color: white;
+              font-weight: 600;
+              z-index: 10000;
+              max-width: 300px;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+              animation: slideInRight 0.3s ease;
+            `;
+          document.body.appendChild(messageContainer);
+        }
+
+        // Set message content and style
+        const backgroundColor =
+          type === "warning"
+            ? "#ff9800"
+            : type === "error"
+            ? "#f44336"
+            : type === "success"
+            ? "#4caf50"
+            : "#2196f3";
+
+        messageContainer.style.backgroundColor = backgroundColor;
+        messageContainer.textContent = message;
+
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+          if (messageContainer.parentNode) {
+            messageContainer.remove();
+          }
+        }, 3000);
+      }
+
+      function renderClarifications(allegations, container) {
+        if (allegations.length === 0) {
+          container.innerHTML = `
+              <div class="no-results">
+                  <i class="fas fa-search"></i>
+                  <h3>No Results Found</h3>
+                  <p>Try adjusting your search terms</p>
+              </div>
+          `;
+          return;
+        }
+
+        let html = "";
+
+        allegations.forEach((allegation, index) => {
+          const isFirst = index === 0;
+          const createdDate = new Date(allegation.createdAt).toLocaleDateString(
+            "en-US",
+            {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }
+          );
+
+          const updatedDate = new Date(allegation.updatedAt).toLocaleDateString(
+            "en-US",
+            {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }
+          );
+
+          const showEditorInfo =
+            allegation.lastUpdatedBy &&
+            allegation.lastUpdatedBy !== allegation.createdBy;
+
+          html += `
+              <div class="allegation-accordion">
+                  <div class="accordion-header">
+                      <h3 class="accordion-title">${allegation.title}</h3>
+                      <i class="fas fa-chevron-down accordion-icon"></i>
+                  </div>
+                  <div class="accordion-content" style="max-height: 0px;">
+                      <div class="accordion-body">
+                          <div class="clarification-content">
+                              <div class="clarification-text">
+                                  ${allegation.description}
+                              </div>
+                              ${
+                                allegation.reference
+                                  ? `
+                                  <div class="reference-section">
+                                      <span class="reference-label">Evidence from Quran & Hadith:</span>
+                                      <p class="reference-text">${allegation.reference}</p>
+                                  </div>
+                              `
+                                  : ""
+                              }
+                          </div>
+                          <div class="accordion-footer">
+                              <div>
+                                  <strong>Created by:</strong> ${
+                                    allegation.createdBy || "System"
+                                  } on ${createdDate}<br>
+                                  ${
+                                    showEditorInfo
+                                      ? `<strong>Last updated by:</strong> ${allegation.lastUpdatedBy} on ${updatedDate}`
+                                      : ""
+                                  }
+                              </div>
+                              <span><i class="fas fa-check-circle" style="color: var(--primary);"></i> Authentic Islamic Sources</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      }
+
+      function setupSearchFunctionality(allegations, container, searchInput) {
+        let searchTimeout;
+
+        searchInput.addEventListener("input", (e) => {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            if (searchTerm === "") {
+              renderClarifications(allegations, container);
+              setupAccordionFunctionality();
+              return;
+            }
+
+            const filteredAllegations = allegations.filter(
+              (allegation) =>
+                allegation.title.toLowerCase().includes(searchTerm) ||
+                allegation.description.toLowerCase().includes(searchTerm) ||
+                (allegation.reference &&
+                  allegation.reference.toLowerCase().includes(searchTerm))
+            );
+
+            renderClarifications(filteredAllegations, container);
+            setupAccordionFunctionality();
+
+            // Auto-expand first result if there are results
+            if (filteredAllegations.length > 0) {
+              const firstAccordion = container.querySelector(
+                ".allegation-accordion"
+              );
+              if (firstAccordion) {
+                firstAccordion.classList.add("active");
+                const content =
+                  firstAccordion.querySelector(".accordion-content");
+                if (content) {
+                  content.style.maxHeight = "1000px";
+                }
+              }
+            }
+          }, 300);
+        });
+      }
+
+      function setupAccordionFunctionality() {
+        const accordions = document.querySelectorAll(".allegation-accordion");
+
+        accordions.forEach((accordion) => {
+          const header = accordion.querySelector(".accordion-header");
+          const content = accordion.querySelector(".accordion-content");
+
+          header.addEventListener("click", () => {
+            const isActive = accordion.classList.contains("active");
+
+            // Close all accordions
+            accordions.forEach((acc) => {
+              acc.classList.remove("active");
+              const accContent = acc.querySelector(".accordion-content");
+              if (accContent) {
+                accContent.style.maxHeight = "0";
+              }
+            });
+
+            // If this wasn't active, open it
+            if (!isActive) {
+              accordion.classList.add("active");
+              if (content) {
+                content.style.maxHeight = "1000px";
+              }
+            }
+          });
+        });
+      }
+
+      // Enhanced Admin Modal functionality
+      function initAdminModal() {
+        const adminSignInLink = document.getElementById("adminSignIn");
+        const adminModal = document.getElementById("adminModal");
+        const closeModal = document.querySelector(".close-modal");
+        const loginForm = document.getElementById("loginForm");
+        const loginMessage = document.getElementById("loginMessage");
+        const passwordToggle = document.getElementById("passwordToggle");
+        const passwordInput = document.getElementById("password");
+        const loginButton = document.getElementById("loginButton");
+
+        // Password toggle functionality
+        passwordToggle.addEventListener("click", function () {
+          const type =
+            passwordInput.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordInput.setAttribute("type", type);
+          this.innerHTML =
+            type === "password"
+              ? '<i class="fas fa-eye"></i>'
+              : '<i class="fas fa-eye-slash"></i>';
+        });
+
+        if (adminSignInLink) {
+          adminSignInLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            adminModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+          });
+        }
+
+        if (closeModal) {
+          closeModal.addEventListener("click", () => {
+            adminModal.style.display = "none";
+            document.body.style.overflow = "";
+          });
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener("click", (e) => {
+          if (e.target === adminModal) {
+            adminModal.style.display = "none";
+            document.body.style.overflow = "";
+          }
+        });
+
+        if (loginForm) {
+          loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Disable button and show loading state
+            loginButton.disabled = true;
+            loginButton.innerHTML =
+              '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Signing In...';
+            loginMessage.textContent = "";
+            loginMessage.className = "message";
+
+            try {
+              const response = await fetch("/api/login", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, password }),
+              });
+
+              const data = await response.json();
+
+              if (data.success) {
+                loginMessage.textContent =
+                  "✅ Login successful! Redirecting to admin panel...";
+                loginMessage.className = "message success";
+
+                // Store user info
+                localStorage.setItem("adminUser", JSON.stringify(data.user));
+
+                // Wait a bit to ensure session is set, then redirect
+                setTimeout(() => {
+                  // Use window.location.replace for cleaner redirect
+                  window.location.replace("/admin");
+                }, 1500);
+              } else {
+                loginMessage.textContent =
+                  data.message || "❌ Invalid username or password";
+                loginMessage.className = "message error";
+
+                // Re-enable button
+                loginButton.disabled = false;
+                loginButton.innerHTML =
+                  '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Sign In';
+              }
+            } catch (error) {
+              console.error("❌ Login error:", error);
+              loginMessage.textContent =
+                "❌ Network error. Please check your connection and try again.";
+              loginMessage.className = "message error";
+
+              // Re-enable button
+              loginButton.disabled = false;
+              loginButton.innerHTML =
+                '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Sign In';
+            }
+          });
+        }
+
+        // Auto-focus username field when modal opens
+        adminSignInLink.addEventListener("click", () => {
+          setTimeout(() => {
+            document.getElementById("username").focus();
+          }, 300);
+        });
+      }
+
+      // Initialize all pages
+      document.addEventListener("DOMContentLoaded", function () {
+        window.quranReader = new QuranReader();
+
+        // Initialize Quran verse
+        initializeQuranVerse();
+
+        // Make sure all pages are properly positioned and pre-rendered
+        document.querySelectorAll(".page-section").forEach((page) => {
+          page.style.display = "block";
+          page.style.opacity = "1";
+          if (!page.classList.contains("active")) {
+            page.style.visibility = "hidden";
+          }
+        });
+
+        // Preload images to prevent loading flashes
+        const imagesToPreload = [
+          "assets/bg.jpg",
+          "assets/traderoute.jpg",
+          "assets/masjid-old.jpeg",
+          "assets/interfaith.jpg",
+        ];
+
+        imagesToPreload.forEach((src) => {
+          const img = new Image();
+          img.src = src;
+        });
+
+        // Pre-render the home page to ensure it's ready
+        const homePage = document.getElementById("home");
+        if (homePage) {
+          homePage.style.visibility = "visible";
+          setTimeout(() => {
+            if (!homePage.classList.contains("active")) {
+              homePage.style.visibility = "hidden";
+            }
+          }, 100);
+        }
+
+        // Initialize admin modal
+        initAdminModal();
+        setupRefreshButton();
+
+        // Load clarifications if already on clarifications page
+        if (
+          document.getElementById("clarifications").classList.contains("active")
+        ) {
+          setTimeout(loadClarificationsContent, 500);
+        }
+      });
+
+      // Change verse every 8 seconds if on home page
+      setInterval(changeQuranVerse, 8000);
+
+      class QuranReader {
+        constructor() {
+          this.currentChapter = null;
+          this.currentVerse = 1;
+          this.verses = [];
+          this.init();
+        }
+
+        init() {
+          this.setupEventListeners();
+          this.updateLoadButtonText();
+        }
+
+        setupEventListeners() {
+          // Tab switching
+          document.querySelectorAll(".tab-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              this.switchTab(e.target.dataset.tab);
+            });
+          });
+
+          // Load chapter button
+          document
+            .getElementById("loadChapterBtn")
+            .addEventListener("click", () => {
+              this.loadChapter();
+            });
+
+          // Input field listeners
+          document
+            .getElementById("chapterInput")
+            .addEventListener("input", () => {
+              this.updateLoadButtonText();
+            });
+
+          document
+            .getElementById("verseInput")
+            .addEventListener("input", () => {
+              this.updateLoadButtonText();
+            });
+
+          // Enter key support
+          document
+            .getElementById("chapterInput")
+            .addEventListener("keypress", (e) => {
+              if (e.key === "Enter") this.loadChapter();
+            });
+
+          document
+            .getElementById("verseInput")
+            .addEventListener("keypress", (e) => {
+              if (e.key === "Enter") this.loadChapter();
+            });
+
+          // Chapter navigation buttons
+          document
+            .getElementById("prevChapterBtn")
+            .addEventListener("click", () => {
+              this.navigateChapter(-1);
+            });
+
+          document
+            .getElementById("nextChapterBtn")
+            .addEventListener("click", () => {
+              this.navigateChapter(1);
+            });
+
+          // Auto-scroll to verse when input changes
+          document
+            .getElementById("verseInput")
+            .addEventListener("change", () => {
+              this.handleVerseInput();
+            });
+        }
+
+        updateLoadButtonText() {
+          const chapterInput = document.getElementById("chapterInput");
+          const verseInput = document.getElementById("verseInput");
+          const loadBtnText = document.getElementById("loadBtnText");
+
+          const chapterNumber = chapterInput.value;
+          const verseNumber = verseInput.value;
+
+          if (!chapterNumber) {
+            loadBtnText.textContent = "Load Chapter";
+            return;
+          }
+
+          if (chapterNumber && !verseNumber) {
+            loadBtnText.textContent = `Chapter ${chapterNumber}`;
+            return;
+          } else if (chapterNumber && verseNumber) {
+            loadBtnText.textContent = `Chapter ${chapterNumber} Verse ${verseNumber}`;
+            return;
+          }
+        }
+
+        switchTab(tabId) {
+          document.querySelectorAll(".tab-btn").forEach((btn) => {
+            btn.classList.remove("active");
+          });
+          document
+            .querySelector(`[data-tab="${tabId}"]`)
+            .classList.add("active");
+
+          document.querySelectorAll(".tab-content").forEach((content) => {
+            content.classList.remove("active");
+          });
+          document.getElementById(tabId).classList.add("active");
+        }
+
+        async loadChapter() {
+          const chapterInput = document.getElementById("chapterInput");
+          const verseInput = document.getElementById("verseInput");
+          const loadBtn = document.getElementById("loadChapterBtn");
+
+          const chapterNumber = parseInt(chapterInput.value);
+          const verseNumber = verseInput.value ? parseInt(verseInput.value) : 1;
+
+          if (!chapterNumber || chapterNumber < 1 || chapterNumber > 114) {
+            this.showError(
+              "Please enter a valid chapter number between 1 and 114"
+            );
+            return;
+          }
+
+          // Show loading state
+          loadBtn.disabled = true;
+          loadBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Loading...';
+
+          try {
+            const response = await fetch(`/api/quran/chapter/${chapterNumber}`);
+            const data = await response.json();
+
+            if (!data.success) {
+              throw new Error(data.message || "Failed to load chapter");
+            }
+
+            this.currentChapter = data.data;
+            this.verses = data.data.verses;
+            this.currentVerse = verseNumber;
+
+            this.displayChapter();
+            this.updateNavigation();
+
+            // Scroll to the specified verse
+            if (verseNumber) {
+              setTimeout(() => this.scrollToVerse(verseNumber), 100);
+            }
+          } catch (error) {
+            console.error("Error loading chapter:", error);
+            this.showError("Failed to load chapter. Please try again.");
+          } finally {
+            loadBtn.disabled = false;
+            loadBtn.innerHTML =
+              '<i class="fas fa-search"></i> <span id="loadBtnText">Load Chapter</span>';
+            this.updateLoadButtonText();
+          }
+        }
+
+        displayChapter() {
+          const chapterTitle = document.getElementById("chapterTitle");
+          const verseCount = document.getElementById("verseCount");
+          const versesContainer = document.getElementById("versesContainer");
+
+          // Update chapter info
+          chapterTitle.innerHTML = `
+            ${this.currentChapter.chapterNumber}. ${this.currentChapter.chapterName}
+            <small style="display: block; font-size: 2rem; opacity: 0.9;">
+              ${this.currentChapter.chapterNameArabic}
+            </small>
+          `;
+
+          verseCount.textContent = `${this.verses.length} Verses`;
+
+          // Display verses in continuous line-by-line format
+          let versesHTML = "";
+
+          this.verses.forEach((verse) => {
+            let isBismillah = false;
+            if (verse.verseNumber === 1) {
+              isBismillah = true;
+            }
+            const isActive = verse.verseNumber === this.currentVerse;
+
+            versesHTML += `
+              <div class="continuous-verse ${
+                isBismillah ? "bismillah-verse" : ""
+              } ${isActive ? "active" : ""}" id="verse-${
+              verse.verseNumber
+            }" data-verse="${verse.verseNumber}">
+                <div class="arabic-line">
+                  ${verse.arabicText}
+                  <span class="verse-number">${verse.verseNumber}</span>
+                </div>
+                <div class="translation-line">
+                  ${verse.translation}
+                </div>
+                <div class="verse-reference">
+                  Chapter ${this.currentChapter.chapterNumber}, Verse ${
+              verse.verseNumber
+            }
+                </div>
+              </div>
+            `;
+          });
+
+          versesContainer.innerHTML = versesHTML;
+
+          // Add click listeners to verses
+          versesContainer
+            .querySelectorAll(".continuous-verse")
+            .forEach((verse) => {
+              verse.addEventListener("click", () => {
+                const verseNumber = parseInt(verse.dataset.verse);
+                this.selectVerse(verseNumber);
+              });
+            });
+
+          // Update navigation state
+          this.updateNavigation();
+
+          // Update progress bar
+          this.updateProgressBar();
+        }
+
+        selectVerse(verseNumber) {
+          if (verseNumber < 1 || verseNumber > this.verses.length) return;
+
+          this.currentVerse = verseNumber;
+
+          // Update active verse highlight
+          document.querySelectorAll(".continuous-verse").forEach((v) => {
+            v.classList.remove("active");
+          });
+
+          const activeVerse = document.getElementById(`verse-${verseNumber}`);
+          if (activeVerse) {
+            activeVerse.classList.add("active");
+            this.scrollToVerse(verseNumber);
+          }
+
+          // Update verse input
+          document.getElementById("verseInput").value = verseNumber;
+
+          // Update navigation info
+          this.updateNavigation();
+
+          // Update progress bar
+          this.updateProgressBar();
+        }
+
+        scrollToVerse(verseNumber) {
+          const verseElement = document.getElementById(`verse-${verseNumber}`);
+          const container = document.getElementById("versesContainer");
+
+          if (!verseElement || !container) return;
+
+          const containerRect = container.getBoundingClientRect();
+          const verseRect = verseElement.getBoundingClientRect();
+          const containerScrollTop = container.scrollTop;
+
+          const targetScrollTop =
+            containerScrollTop + (verseRect.top - containerRect.top) - 100;
+
+          container.scrollTo({
+            top: targetScrollTop,
+            behavior: "smooth",
+          });
+        }
+
+        handleVerseInput() {
+          const verseInput = document.getElementById("verseInput");
+          const verseNumber = verseInput.value
+            ? parseInt(verseInput.value)
+            : null;
+
+          if (verseNumber && this.verses.length > 0) {
+            if (verseNumber >= 1 && verseNumber <= this.verses.length) {
+              this.selectVerse(verseNumber);
+            } else {
+              this.showError(
+                `Please enter a verse number between 1 and ${this.verses.length}`
+              );
+            }
+          }
+        }
+
+        navigateChapter(direction) {
+          if (!this.currentChapter) return;
+
+          const newChapter = this.currentChapter.chapterNumber + direction;
+          if (newChapter >= 1 && newChapter <= 114) {
+            document.getElementById("chapterInput").value = newChapter;
+            document.getElementById("verseInput").value = 1;
+            this.loadChapter();
+          }
+        }
+
+        updateNavigation() {
+          const hasPrevChapter =
+            this.currentChapter && this.currentChapter.chapterNumber > 1;
+          const hasNextChapter =
+            this.currentChapter && this.currentChapter.chapterNumber < 114;
+
+          // Chapter navigation
+          document.getElementById("prevChapterBtn").disabled = !hasPrevChapter;
+          document.getElementById("nextChapterBtn").disabled = !hasNextChapter;
+        }
+
+        updateProgressBar() {
+          const progressBar = document.getElementById("readingProgress");
+          if (this.currentVerse && this.verses.length > 0) {
+            const progress = (this.currentVerse / this.verses.length) * 100;
+            progressBar.style.width = `${progress}%`;
+          } else {
+            progressBar.style.width = "0%";
+          }
+        }
+
+        showError(message) {
+          // Enhanced error display with modern toast notification
+          const errorDiv = document.createElement("div");
+          errorDiv.className = "error-toast";
+          errorDiv.innerHTML = `
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>${message}</span>
+          `;
+
+          errorDiv.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #f44336;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            animation: slideInRight 0.3s ease;
+          `;
+
+          document.body.appendChild(errorDiv);
+
+          setTimeout(() => {
+            errorDiv.remove();
+          }, 4000);
+        }
+      }
+    </script>
+  </body>
+</html>

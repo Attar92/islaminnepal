@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "$2a$12$3Ej8d6wDry6eCXReBG7WJec.GhN3q5zAezZrkeKnlGNvkN60vpeuu",
+    "fullName": "System Administrator",
+    "role": "admin",
+    "createdAt": "2025-12-07T19:32:30.599Z",
+    "lastLogin": null
+  }
+]
