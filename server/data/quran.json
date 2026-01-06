@@ -248,54 +248,54 @@
           "translation": "O Children of Israel! Remember My favour which I bestowed upon you, and fulfil your Covenant with Me..."
         },
         {
-          "number": 41,
-          "arabic": "وَآمِنُوا بِمَا أَنْزَلْتُ مُصَدِّقًا لِمَا مَعَكُمْ وَلَا تَكُونُوا أَوَّلَ كَافِرٍ بِهِ ۖ وَلَا تَشْتَرُوا بِآيَاتِي ثَمَنًا قَلِيلًا وَإِيَّايَ فَاتَّقُونِ",
-          "english": "And believe in what I have sent down confirming what is with you, and do not be the first to reject it. Do not exchange My signs for a small price, and fear only Me."
+          "verseNumber": 41,
+          "arabicText": "وَآمِنُوا بِمَا أَنْزَلْتُ مُصَدِّقًا لِمَا مَعَكُمْ وَلَا تَكُونُوا أَوَّلَ كَافِرٍ بِهِ ۖ وَلَا تَشْتَرُوا بِآيَاتِي ثَمَنًا قَلِيلًا وَإِيَّايَ فَاتَّقُونِ",
+          "translation": "And believe in what I have sent down confirming what is with you, and do not be the first to reject it. Do not exchange My signs for a small price, and fear only Me."
         },
         {
-          "number": 42,
-          "arabic": "وَلَا تَلْبِسُوا الْحَقَّ بِالْبَاطِلِ وَتَكْتُمُوا الْحَقَّ وَأَنْتُمْ تَعْلَمُونَ",
-          "english": "Do not mix truth with falsehood or conceal the truth while you know."
+          "verseNumber": 42,
+          "arabicText": "وَلَا تَلْبِسُوا الْحَقَّ بِالْبَاطِلِ وَتَكْتُمُوا الْحَقَّ وَأَنْتُمْ تَعْلَمُونَ",
+          "translation": "Do not mix truth with falsehood or conceal the truth while you know."
         },
         {
-          "number": 43,
-          "arabic": "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ",
-          "english": "Establish prayer, give zakah, and bow with those who bow."
+          "verseNumber": 43,
+          "arabicText": "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ",
+          "translation": "Establish prayer, give zakah, and bow with those who bow."
         },
         {
-          "number": 44,
-          "arabic": "أَتَأْمُرُونَ النَّاسَ بِالْبِرِّ وَتَنْسَوْنَ أَنْفُسَكُمْ وَأَنْتُمْ تَتْلُونَ الْكِتَابَ ۚ أَفَلَا تَعْقِلُونَ",
-          "english": "Do you order righteousness of the people and forget yourselves while you recite the Scripture? Do you not understand?"
+          "verseNumber": 44,
+          "arabicText": "أَتَأْمُرُونَ النَّاسَ بِالْبِرِّ وَتَنْسَوْنَ أَنْفُسَكُمْ وَأَنْتُمْ تَتْلُونَ الْكِتَابَ ۚ أَفَلَا تَعْقِلُونَ",
+          "translation": "Do you order righteousness of the people and forget yourselves while you recite the Scripture? Do you not understand?"
         },
         {
-          "number": 45,
-          "arabic": "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ وَإِنَّهَا لَكَبِيرَةٌ إِلَّا عَلَى الْخَاشِعِينَ",
-          "english": "Seek help through patience and prayer. Indeed, it is difficult except for the humble."
+          "verseNumber": 45,
+          "arabicText": "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ وَإِنَّهَا لَكَبِيرَةٌ إِلّا عَلَا الْخَاشِعِين",
+          "translation": "Seek help through patience and prayer. Indeed, it is difficult except for the humble."
         },
         {
-          "number": 46,
-          "arabic": "الَّذِينَ يَظُنُّونَ أَنَّهُمْ مُلَاقُو رَبِّهِمْ وَأَنَّهُمْ إِلَيْهِ رَاجِعُونَ",
-          "english": "Those who are certain that they will meet their Lord and that they will return to Him."
+          "verseNumber": 46,
+          "arabicText": "الَّذِينَ يَظُنُّونَ أَنَّهُمْ مُلَاقُو رَبِّهِمْ وَأَنَّهُمْ إِلَيْهِ رَاجِعُونَ",
+          "translation": "Those who are certain that they will meet their Lord and that they will return to Him."
         },
         {
-          "number": 47,
-          "arabic": "يَا بَنِي إِسْرَائِيلَ اذْكُرُوا نِعْمَتِيَ الَّتِي أَنْعَمْتُ عَلَيْكُمْ وَأَنِّي فَضَّلْتُكُمْ عَلَى الْعَالَمِينَ",
-          "english": "O Children of Israel, remember My favour which I bestowed upon you and that I preferred you over all others."
+          "verseNumber": 47,
+          "arabicText": "يَا بَنِي إِسْرَائِيلَ اذْكُرُوا نِعْمَتِيَ الَّتِي أَنْعَمْتُ عَلَيْكُمْ وَأَنِّي فَضَّلْتُكُمْ عَلَا الْعَالَمِين",
+          "translation": "O Children of Israel, remember My favour which I bestowed upon you and that I preferred you over all others."
         },
         {
-          "number": 48,
-          "arabic": "وَاتَّقُوا يَوْمًا لَا تَجْزِي نَفْسٌ عَنْ نَفْسٍ شَيْئًا وَلَا يُقْبَلُ مِنْهَا شَفَاعَةٌ وَلَا يُؤْخَذُ مِنْهَا عَدْلٌ وَلَا هُمْ يُنْصَرُونَ",
-          "english": "And fear a Day when no soul will avail another in anything, nor will intercession be accepted from it, nor ransom taken, nor will they be helped."
+          "verseNumber": 48,
+          "arabicText": "وَاتَّقُوا يَوْمًا لَا تَجْزِي نَفْسٌ عَنْ نَفْسٍ شَيْئًا وَلَا يُقْبَلُ مِنْهَا شَفَاعَةٌ وَلَا يُؤْخَذُ مِنْهَا عَدْلٌ وَلَا هُمْ يُنْصَرُونَ",
+          "translation": "And fear a Day when no soul will avail another in anything, nor will intercession be accepted from it, nor ransom taken, nor will they be helped."
         },
         {
-          "number": 49,
-          "arabic": "وَإِذْ نَجَّيْنَاكُمْ مِنْ آلِ فِرْعَوْنَ يَسُومُونَكُمْ سُوءَ الْعَذَابِ يُذَبِّحُونَ أَبْنَاءَكُمْ وَيَسْتَحْيُونَ نِسَاءَكُمْ ۚ وَفِي ذَٰلِكُمْ بَلَاءٌ مِنْ رَبِّكُمْ عَظِيمٌ",
-          "english": "And recall when We saved you from the people of Pharaoh, who afflicted you with terrible torment, slaughtering your sons and letting your women live. In that was a great trial from your Lord."
+          "verseNumber": 49,
+          "arabicText": "وَإِذْ نَجَّيْنَاكُمْ مِنْ آلِ فِرْعَوْنَ يَسُومُونَكُمْ سُوءَ الْعَذَابِ يُذَبِّحُونَ أَبْناءً كُمْ وَيَسْتَحْيُون نِساءً كُم ۚ وَا فِي ذَا لِكُم ب لآءٌ مِن ر بِكُم عظيمٌ",
+          "translation": "And recall when We saved you from the people of Pharaoh, who afflicted you with terrible torment, slaughtering your sons and letting your women live. In that was a great trial from your Lord."
         },
         {
-          "number": 50,
-          "arabic": "وَإِذْ فَرَقْنَا بِكُمُ الْبَحْرَ فَأَنْجَيْنَاكُمْ وَأَغْرَقْنَا آلَ فِرْعَوْنَ وَأَنْتُمْ تَنْظُرُونَ",
-          "english": "And recall when We parted the sea for you, saved you, and drowned the people of Pharaoh while you looked on."
+          "verseNumber": 50,
+          "arabicText": "وَإِذْ فَرَقْنَا بِكُمُ الْبَحْرَ فَأَنْجَيْنَاكُمْ وَأَغْرَقْنَا آلَ فِرْعَوْنَ وَأَنْتُمْ تَنْظُرُونَ",
+          "translation": "And recall when We parted the sea for you, saved you, and drowned the people of Pharaoh while you looked on."
         }
       ]
     }

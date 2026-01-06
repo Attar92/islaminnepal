@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const DB_PATH = path.join(__dirname, 'data', 'db.json');
 const USERS_PATH = path.join(__dirname, 'data', 'users.json');
+const QUESTIONS_PATH = path.join(__dirname, 'data', 'questions.json');
 
 // Enhanced session tracking for single session enforcement
 let activeSession = null;
@@ -374,6 +375,74 @@ async function getPublicAllegations() {
     }
 }
 
+
+// Question functions
+async function getQuestions() {
+    try {
+        await ensureDataDirectory();
+        const data = await fs.readFile(QUESTIONS_PATH, 'utf8');
+        const questions = JSON.parse(data);
+        return questions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } catch (error) {
+        return [];
+    }
+}
+
+async function saveQuestions(questions) {
+    await ensureDataDirectory();
+    await fs.writeFile(QUESTIONS_PATH, JSON.stringify(questions, null, 2));
+}
+
+async function addQuestion(questionData) {
+    try {
+        const questions = await getQuestions();
+        const newQuestion = {
+            id: Date.now(),
+            ...questionData,
+            status: 'unread',
+            createdAt: new Date().toISOString()
+        };
+        questions.push(newQuestion);
+        await saveQuestions(questions);
+        return newQuestion;
+    } catch (error) {
+        console.error('Error adding question:', error);
+        throw error;
+    }
+}
+
+async function deleteQuestion(questionId) {
+    try {
+        const questions = await getQuestions();
+        const filteredQuestions = questions.filter(q => q.id !== parseInt(questionId));
+        await saveQuestions(filteredQuestions);
+        return true;
+    } catch (error) {
+        console.error('Error deleting question:', error);
+        throw error;
+    }
+}
+
+async function getQuestionStats() {
+    try {
+        const questions = await getQuestions();
+        const total = questions.length;
+        const unread = questions.filter(q => q.status === 'unread').length;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const todayQuestions = questions.filter(q => {
+            const questionDate = new Date(q.createdAt);
+            return questionDate >= today;
+        }).length;
+
+        return { total, unread, todayQuestions };
+    } catch (error) {
+        console.error('Error getting question stats:', error);
+        return { total: 0, unread: 0, todayQuestions: 0 };
+    }
+}
+
 module.exports = {
     initializeDatabase,
     getUsers,
@@ -393,5 +462,9 @@ module.exports = {
     setActiveSession,
     clearActiveSession,
     isSessionActive,
-    isUserAlreadyLoggedIn
+    isUserAlreadyLoggedIn,
+    getQuestions,
+    addQuestion,
+    deleteQuestion,
+    getQuestionStats
 };

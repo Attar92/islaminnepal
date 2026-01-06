@@ -25,7 +25,12 @@ const {
     setActiveSession,
     clearActiveSession,
     isSessionActive,
-    isUserAlreadyLoggedIn
+    isUserAlreadyLoggedIn,
+    // Question management imports
+    getQuestions,
+    addQuestion,
+    deleteQuestion,
+    getQuestionStats
 } = require('./database');
 
 const app = express();
@@ -614,6 +619,97 @@ app.delete('/api/allegations/:id', requireAuth, async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Failed to delete clarification'
+        });
+    }
+});
+
+// Questions API
+app.post('/api/questions', [
+    body('question').trim().isLength({ min: 10 }).withMessage('Question must be at least 10 characters'),
+    body('userEmail').optional().isEmail().withMessage('Please enter a valid email')
+], async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                success: false,
+                message: errors.array()[0].msg
+            });
+        }
+
+        const { question, userEmail } = req.body;
+        const questionData = {
+            question,
+            userEmail: userEmail || 'anonymous',
+            ip: req.ip || 'unknown'
+        };
+
+        const savedQuestion = await addQuestion(questionData);
+        res.json({
+            success: true,
+            message: 'Question submitted successfully! We\'ll review it soon.',
+            data: savedQuestion
+        });
+    } catch (error) {
+        console.error('Submit question error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to submit question'
+        });
+    }
+});
+
+app.get('/api/questions', requireAuth, async (req, res) => {
+    try {
+        const questions = await getQuestions();
+        res.json({
+            success: true,
+            data: questions
+        });
+    } catch (error) {
+        console.error('Get questions error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch questions'
+        });
+    }
+});
+
+app.delete('/api/questions/:id', requireAuth, async (req, res) => {
+    try {
+        const deleted = await deleteQuestion(req.params.id);
+        if (!deleted) {
+            return res.status(404).json({
+                success: false,
+                message: 'Question not found'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'Question discarded successfully'
+        });
+    } catch (error) {
+        console.error('Delete question error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete question'
+        });
+    }
+});
+
+app.get('/api/stats/questions', requireAuth, async (req, res) => {
+    try {
+        const stats = await getQuestionStats();
+        res.json({
+            success: true,
+            data: stats
+        });
+    } catch (error) {
+        console.error('Get question stats error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch question stats'
         });
     }
 });

@@ -1691,6 +1691,80 @@
           <!-- Pagination -->
           <div class="pagination" id="allegationsPagination"></div>
         </div>
+        <!-- Questions Management -->
+        <div class="card glass" style="margin-top: 2rem">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="fas fa-question-circle"></i>
+              User Questions
+            </h2>
+            <div class="question-stats" style="display: flex; gap: 1rem">
+              <div
+                class="stat-badge"
+                id="totalQuestions"
+                style="
+                  background: rgba(13, 90, 46, 0.1);
+                  color: var(--primary);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  font-weight: 600;
+                "
+              >
+                <i class="fas fa-inbox"></i> Total: 0
+              </div>
+              <div
+                class="stat-badge"
+                id="unreadQuestions"
+                style="
+                  background: rgba(33, 150, 243, 0.1);
+                  color: var(--accent);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  font-weight: 600;
+                "
+              >
+                <i class="fas fa-eye-slash"></i> Unread: 0
+              </div>
+              <div
+                class="stat-badge"
+                id="todayQuestions"
+                style="
+                  background: rgba(255, 152, 0, 0.1);
+                  color: var(--warning);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  font-weight: 600;
+                "
+              >
+                <i class="fas fa-calendar-day"></i> Today: 0
+              </div>
+            </div>
+          </div>
+
+          <div class="table-container" style="max-height: 400px">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>User</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="questionsTableBody">
+                <tr>
+                  <td colspan="5" class="text-center">
+                    <div class="loading-spinner">
+                      <div class="spinner"></div>
+                      <p>Loading questions...</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1854,6 +1928,7 @@
           this.checkAuthentication();
           this.setupScrollEffect();
           this.setupMobileNavigation();
+          this.setupQuestionPolling();
         }
 
         setupMobileNavigation() {
@@ -1901,7 +1976,6 @@
           document.getElementById("adminContent").classList.add("hidden");
 
           try {
-
             const response = await fetch("/api/user", {
               method: "GET",
               credentials: "include",
@@ -1925,18 +1999,27 @@
 
             // Show user-friendly error
             document.getElementById("authCheck").innerHTML = `
-              <div style="text-align: center; padding: 2rem;">
-                <div class="spinner"></div>
-                <p style="margin: 1rem 0;">Connecting to server...</p>
-                <p style="font-size: 0.9rem; color: var(--gray-600);">
-                  If this persists, check if the server is running at ${window.location.origin}
-                </p>
-              </div>
-            `;
+                    <div style="text-align: center; padding: 2rem;">
+                      <div class="spinner"></div>
+                      <p style="margin: 1rem 0;">Connecting to server...</p>
+                      <p style="font-size: 0.9rem; color: var(--gray-600);">
+                        If this persists, check if the server is running at ${window.location.origin}
+                      </p>
+                    </div>
+                  `;
 
             // Retry after delay
             setTimeout(() => this.checkAuthentication(), 2000);
           }
+        }
+
+        setupQuestionPolling() {
+          // Refresh question stats every 30 seconds
+          setInterval(() => {
+            if (document.visibilityState === "visible") {
+              this.updateQuestionStats();
+            }
+          }, 30000);
         }
 
         showAdminPanel() {
@@ -2016,7 +2099,11 @@
         }
 
         async loadDashboardData() {
-          await Promise.all([this.loadStats(), this.loadClarifications()]);
+          await Promise.all([
+            this.loadStats(),
+            this.loadClarifications(),
+            this.loadQuestions(),
+          ]);
         }
 
         async loadStats() {
@@ -2081,26 +2168,26 @@
 
           if (clarifications.length === 0) {
             tableBody.innerHTML = `
-              <tr>
-                <td colspan="4" class="text-center" style="padding: 3rem;">
-                  <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
-                  <p style="color: var(--gray-600);">
-                    ${
-                      this.currentSearchTerm
-                        ? "No clarifications found matching your search"
-                        : "No clarifications found. Create your first one!"
-                    }
-                  </p>
-                  ${
-                    !this.currentSearchTerm
-                      ? `<button class="admin-btn primary mt-2" onclick="adminDashboard.openModal()" style="margin: 1rem auto;">
-                    <i class="fas fa-plus-circle"></i> Create First Clarification
-                  </button>`
-                      : ""
-                  }
-                </td>
-              </tr>
-            `;
+                    <tr>
+                      <td colspan="4" class="text-center" style="padding: 3rem;">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                        <p style="color: var(--gray-600);">
+                          ${
+                            this.currentSearchTerm
+                              ? "No clarifications found matching your search"
+                              : "No clarifications found. Create your first one!"
+                          }
+                        </p>
+                        ${
+                          !this.currentSearchTerm
+                            ? `<button class="admin-btn primary mt-2" onclick="adminDashboard.openModal()" style="margin: 1rem auto;">
+                          <i class="fas fa-plus-circle"></i> Create First Clarification
+                        </button>`
+                            : ""
+                        }
+                      </td>
+                    </tr>
+                  `;
             return;
           }
 
@@ -2111,54 +2198,58 @@
             ).toLocaleDateString();
 
             html += `
-              <tr class="fade-in">
-                <td>
-                  <strong>${allegation.title}</strong>
-                  <br>
-                  <small style="color: var(--gray-600);">${allegation.description.substring(
-                    0,
-                    80
-                  )}...</small>
-                </td>
-                <td>
-                  <span class="status-badge ${
-                    allegation.status === "published"
-                      ? "status-published"
-                      : "status-draft"
-                  }">
-                    <i class="fas ${
-                      allegation.status === "published" ? "fa-eye" : "fa-edit"
-                    }"></i>
-                    ${allegation.status}
-                  </span>
-                </td>
-                <td>
-                  <strong>${updatedDate}</strong>
-                  <br>
-                  <small style="color: var(--gray-600);">by ${
-                    allegation.lastUpdatedBy ||
-                    allegation.createdBy ||
-                    "Unknown"
-                  }</small>
-                </td>
-                <td>
-                  <div class="action-buttons">
-                    <button class="btn btn-edit btn-sm" data-id="${
-                      allegation.id
-                    }">
-                      <i class="fas fa-edit"></i> ${this.isMobile ? "" : "Edit"}
-                    </button>
-                    <button class="btn btn-delete btn-sm" data-id="${
-                      allegation.id
-                    }">
-                      <i class="fas fa-trash"></i> ${
-                        this.isMobile ? "" : "Delete"
-                      }
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            `;
+                    <tr class="fade-in">
+                      <td>
+                        <strong>${allegation.title}</strong>
+                        <br>
+                        <small style="color: var(--gray-600);">${allegation.description.substring(
+                          0,
+                          80
+                        )}...</small>
+                      </td>
+                      <td>
+                        <span class="status-badge ${
+                          allegation.status === "published"
+                            ? "status-published"
+                            : "status-draft"
+                        }">
+                          <i class="fas ${
+                            allegation.status === "published"
+                              ? "fa-eye"
+                              : "fa-edit"
+                          }"></i>
+                          ${allegation.status}
+                        </span>
+                      </td>
+                      <td>
+                        <strong>${updatedDate}</strong>
+                        <br>
+                        <small style="color: var(--gray-600);">by ${
+                          allegation.lastUpdatedBy ||
+                          allegation.createdBy ||
+                          "Unknown"
+                        }</small>
+                      </td>
+                      <td>
+                        <div class="action-buttons">
+                          <button class="btn btn-edit btn-sm" data-id="${
+                            allegation.id
+                          }">
+                            <i class="fas fa-edit"></i> ${
+                              this.isMobile ? "" : "Edit"
+                            }
+                          </button>
+                          <button class="btn btn-delete btn-sm" data-id="${
+                            allegation.id
+                          }">
+                            <i class="fas fa-trash"></i> ${
+                              this.isMobile ? "" : "Delete"
+                            }
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  `;
           });
 
           tableBody.innerHTML = html;
@@ -2182,10 +2273,10 @@
             html += `<button class="page-btn" data-page="${
               this.currentPage - 1
             }">
-                     <i class="fas fa-chevron-left"></i> ${
-                       this.isMobile ? "" : "Previous"
-                     }
-                   </button>`;
+                           <i class="fas fa-chevron-left"></i> ${
+                             this.isMobile ? "" : "Previous"
+                           }
+                         </button>`;
           }
 
           // Page numbers (show limited pages on mobile)
@@ -2211,10 +2302,10 @@
             html += `<button class="page-btn" data-page="${
               this.currentPage + 1
             }">
-                     ${
-                       this.isMobile ? "" : "Next"
-                     } <i class="fas fa-chevron-right"></i>
-                   </button>`;
+                           ${
+                             this.isMobile ? "" : "Next"
+                           } <i class="fas fa-chevron-right"></i>
+                         </button>`;
           }
 
           paginationContainer.innerHTML = html;
@@ -2441,6 +2532,224 @@
           setTimeout(() => {
             messageEl.classList.add("hidden");
           }, 5000);
+        }
+
+        async loadQuestions() {
+          try {
+            const response = await this.apiCall("/api/questions");
+            if (response && response.success) {
+              this.renderQuestionsTable(response.data);
+              this.updateQuestionStats();
+            }
+          } catch (error) {
+            console.error("Failed to load questions:", error);
+          }
+        }
+
+        async updateQuestionStats() {
+          try {
+            const response = await this.apiCall("/api/stats/questions");
+            if (response && response.success) {
+              const stats = response.data;
+              document.getElementById(
+                "totalQuestions"
+              ).innerHTML = `<i class="fas fa-inbox"></i> Total: ${stats.total}`;
+              document.getElementById(
+                "unreadQuestions"
+              ).innerHTML = `<i class="fas fa-eye-slash"></i> Unread: ${stats.unread}`;
+              document.getElementById(
+                "todayQuestions"
+              ).innerHTML = `<i class="fas fa-calendar-day"></i> Today: ${stats.todayQuestions}`;
+            }
+          } catch (error) {
+            console.error("Failed to load question stats:", error);
+          }
+        }
+
+        renderQuestionsTable(questions) {
+          const tableBody = document.getElementById("questionsTableBody");
+
+          if (questions.length === 0) {
+            tableBody.innerHTML = `
+                  <tr>
+                      <td colspan="5" class="text-center" style="padding: 3rem;">
+                          <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                          <p style="color: var(--gray-600);">No questions from users yet.</p>
+                      </td>
+                  </tr>
+              `;
+            return;
+          }
+
+          let html = "";
+          questions.forEach((question) => {
+            const date = new Date(question.createdAt);
+            const formattedDate = date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+
+            const shortQuestion =
+              question.question.length > 100
+                ? question.question.substring(0, 100) + "..."
+                : question.question;
+
+            const statusBadge =
+              question.status === "unread"
+                ? `<span class="status-badge" style="background: rgba(33, 150, 243, 0.1); color: var(--accent);">
+                      <i class="fas fa-eye-slash"></i> Unread
+                     </span>`
+                : `<span class="status-badge" style="background: rgba(76, 175, 80, 0.1); color: var(--success);">
+                      <i class="fas fa-eye"></i> Read
+                     </span>`;
+
+            html += `
+                  <tr>
+                      <td>
+                          <strong>${shortQuestion}</strong>
+                      </td>
+                      <td>
+                          ${question.userEmail}<br>
+                          <small style="color: var(--gray-500);">${question.ip}</small>
+                      </td>
+                      <td>
+                          <strong>${formattedDate}</strong>
+                      </td>
+                      <td>
+                          ${statusBadge}
+                      </td>
+                      <td>
+                          <div class="action-buttons">
+                              <button class="btn btn-primary btn-sm" onclick="adminDashboard.viewQuestion(${question.id})">
+                                  <i class="fas fa-eye"></i> View
+                              </button>
+                              <button class="btn btn-delete btn-sm" onclick="adminDashboard.deleteQuestion(${question.id})">
+                                  <i class="fas fa-trash"></i> Discard
+                              </button>
+                          </div>
+                      </td>
+                  </tr>
+              `;
+          });
+
+          tableBody.innerHTML = html;
+        }
+
+        async viewQuestion(id) {
+          try {
+            const questions = await this.getQuestions();
+            const question = questions.find((q) => q.id === id);
+
+            if (question) {
+              const formattedDate = new Date(
+                question.createdAt
+              ).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+
+              const questionModal = document.createElement("div");
+              questionModal.className = "modal";
+              questionModal.style.display = "flex";
+              questionModal.innerHTML = `
+                      <div class="modal-content" style="max-width: 600px;">
+                          <span class="close-modal" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                          <h2 class="modal-title">User Question</h2>
+
+                          <div style="margin-bottom: 2rem;">
+                              <div style="background: rgba(13, 90, 46, 0.05); padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                                  <p style="font-size: 1.1rem; line-height: 1.6; color: var(--dark);">${
+                                    question.question
+                                  }</p>
+                              </div>
+
+                              <div class="question-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                  <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid rgba(13, 90, 46, 0.1);">
+                                      <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">
+                                          <i class="fas fa-user"></i> User
+                                      </div>
+                                      <div>${question.userEmail}</div>
+                                  </div>
+                                  <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid rgba(13, 90, 46, 0.1);">
+                                      <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">
+                                          <i class="fas fa-calendar"></i> Date
+                                      </div>
+                                      <div>${formattedDate}</div>
+                                  </div>
+                                  <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid rgba(13, 90, 46, 0.1);">
+                                      <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">
+                                          <i class="fas fa-network-wired"></i> IP Address
+                                      </div>
+                                      <div>${question.ip || "Unknown"}</div>
+                                  </div>
+                                  <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid rgba(13, 90, 46, 0.1);">
+                                      <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">
+                                          <i class="fas fa-info-circle"></i> Status
+                                      </div>
+                                      <div>${
+                                        question.status === "unread"
+                                          ? "Unread"
+                                          : "Read"
+                                      }</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="form-actions">
+                              <button class="admin-btn primary" onclick="adminDashboard.deleteQuestion(${
+                                question.id
+                              }); this.parentElement.parentElement.parentElement.remove();">
+                                  <i class="fas fa-trash"></i> Discard Question
+                              </button>
+                              <button class="admin-btn secondary" onclick="this.parentElement.parentElement.parentElement.remove()">
+                                  <i class="fas fa-times"></i> Close
+                              </button>
+                          </div>
+                      </div>
+                  `;
+
+              document.body.appendChild(questionModal);
+            }
+          } catch (error) {
+            console.error("Error viewing question:", error);
+            this.showMessage("Failed to load question details", "error");
+          }
+        }
+
+        async deleteQuestion(id) {
+          if (
+            confirm(
+              "Are you sure you want to discard this question? This action cannot be undone."
+            )
+          ) {
+            try {
+              await this.apiCall(`/api/questions/${id}`, {
+                method: "DELETE",
+              });
+              this.loadQuestions();
+              this.updateQuestionStats();
+              this.showMessage("Question discarded successfully!", "success");
+            } catch (error) {
+              console.error("Error deleting question:", error);
+              this.showMessage("Failed to discard question", "error");
+            }
+          }
+        }
+
+        async getQuestions() {
+          try {
+            const response = await this.apiCall("/api/questions");
+            return response.data || [];
+          } catch (error) {
+            console.error("Error getting questions:", error);
+            return [];
+          }
         }
       }
 

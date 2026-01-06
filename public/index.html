@@ -2969,6 +2969,145 @@
               </div>
             </div>
           </div>
+          <!-- Ask Us Section -->
+          <div class="ask-us-section" style="margin-top: 4rem; padding: 2rem">
+            <div class="card glass" style="max-width: 800px; margin: 0 auto">
+              <div
+                class="card-header"
+                style="border-bottom: 2px solid rgba(13, 90, 46, 0.1); margin-bottom: 1.5rem;"
+              >
+                <h2 class="card-title" style="font-size: 2rem; color: var(--primary);">
+                  <i
+                    class="fas fa-question-circle"
+                    style="margin-right: 10px"
+                  ></i>
+                  Ask Us Anything
+                </h2>
+                <p style="color: var(--gray-600); margin-top: 0.5rem">
+                  Have a question about Islam? We're here to help clarify any
+                  doubts or misconceptions.
+                </p>
+              </div>
+
+              <div class="ask-us-form" style="padding: 2rem; background-color: #f1fff9; border-radius: 10px;">
+                <form id="askUsForm">
+                  <div class="form-group" style="margin-bottom: 1.5rem">
+                    <label for="userQuestion" class="form-label">
+                      <i class="fas fa-comment-dots"></i>
+                      Your Question *
+                    </label>
+                    <textarea
+                      id="userQuestion"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Ask any question about Islam, Quran, or Muslim practices..."
+                      required
+                      style="
+                        background: rgba(255, 255, 255, 0.9);
+                        border: 2px solid rgba(13, 90, 46, 0.1);
+                        border-radius: 10px;
+                        padding: 1rem;
+                        font-size: 1rem;
+                        transition: all 0.3s ease;
+                        width: 40.5vw;
+                        max-width: 40.5vw;
+                        min-height: 100px;
+                        max-height: 150px;
+                        resize: vertical;
+                      "
+                    ></textarea>
+                    <small
+                      style="
+                        color: var(--gray-500);
+                        display: block;
+                        margin-top: 0.5rem;
+                      "
+                    >
+                      Please be respectful and specific with your question
+                    </small>
+                  </div>
+
+                  <div class="form-group" style="margin-bottom: 1.5rem">
+                    <label for="userEmail" class="form-label">
+                      <i class="fas fa-envelope"></i>
+                      Your Email (Optional)
+                    </label>
+                    <input
+                      type="email"
+                      id="userEmail"
+                      class="form-control"
+                      placeholder="email@example.com"
+                      style="
+                        background: rgba(255, 255, 255, 0.9);
+                        border: 2px solid rgba(13, 90, 46, 0.1);
+                        border-radius: 10px;
+                        padding: 1rem;
+                        font-size: 1rem;
+                      "
+                    />
+                    <small
+                      style="
+                        color: var(--gray-500);
+                        display: block;
+                        margin-top: 0.5rem;
+                      "
+                    >
+                      We'll use this only to respond to your question if needed
+                    </small>
+                  </div>
+
+                  <div
+                    class="form-actions"
+                    style="display: flex; gap: 1rem; margin-top: 2rem"
+                  >
+                    <button
+                      type="submit"
+                      class="admin-btn primary"
+                      id="submitQuestionBtn"
+                      style="padding: 1rem 2rem; font-size: 1.1rem"
+                    >
+                      <i class="fas fa-paper-plane"></i>
+                      <span>Submit Question</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="admin-btn secondary"
+                      id="clearQuestionBtn"
+                      style="padding: 1rem 2rem; font-size: 1.1rem"
+                    >
+                      <i class="fas fa-times"></i>
+                      <span>Clear</span>
+                    </button>
+                  </div>
+                </form>
+
+                <div id="questionMessage" style="margin-top: 1.5rem"></div>
+
+                <div
+                  class="privacy-notice"
+                  style="
+                    background: rgba(13, 90, 46, 0.05);
+                    padding: 1rem;
+                    border-radius: 8px;
+                    margin-top: 2rem;
+                    border-left: 4px solid var(--primary);
+                  "
+                >
+                  <h4 style="color: var(--primary); margin-bottom: 0.5rem">
+                    <i class="fas fa-shield-alt"></i> Privacy & Response
+                  </h4>
+                  <p
+                    style="color: var(--gray-600); font-size: 0.9rem; margin: 0"
+                  >
+                    Your question will be reviewed by our Islamic scholars.
+                    Common questions may be answered publicly in our
+                    clarifications section. We respect your privacy and will not
+                    share your email with third parties.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -3975,6 +4114,7 @@
         // Initialize admin modal
         initAdminModal();
         setupRefreshButton();
+        setupAskUsSection();
 
         // Load clarifications if already on clarifications page
         if (
@@ -4341,6 +4481,119 @@
           }, 4000);
         }
       }
+
+      // Ask Us functionality
+      function setupAskUsSection() {
+        const askUsForm = document.getElementById("askUsForm");
+        const questionMessage = document.getElementById("questionMessage");
+        const submitBtn = document.getElementById("submitQuestionBtn");
+        const clearBtn = document.getElementById("clearQuestionBtn");
+
+        if (!askUsForm) return;
+
+        // Clear form
+        clearBtn.addEventListener("click", () => {
+          askUsForm.reset();
+          questionMessage.textContent = "";
+          questionMessage.className = "";
+        });
+
+        // Submit form
+        askUsForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const question = document.getElementById("userQuestion").value.trim();
+          const email = document.getElementById("userEmail").value.trim();
+
+          if (!question || question.length < 10) {
+            showQuestionMessage(
+              "Please enter a question with at least 10 characters.",
+              "error"
+            );
+            return;
+          }
+
+          // Disable button and show loading
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+          try {
+            const response = await fetch("/api/questions", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                question: question,
+                userEmail: email || "anonymous",
+              }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              showQuestionMessage(data.message, "success");
+              askUsForm.reset();
+
+              // Show success animation
+              const formCard = document.querySelector(".ask-us-section .card");
+              formCard.style.animation = "none";
+              setTimeout(() => {
+                formCard.style.animation = "successPulse 1s ease";
+              }, 10);
+
+              // Show thank you message
+              setTimeout(() => {
+                questionMessage.innerHTML = `
+                        <div style="background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05)); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--success);">
+                            <h4 style="color: var(--success); margin-bottom: 0.5rem;">
+                                <i class="fas fa-check-circle"></i> Thank You!
+                            </h4>
+                            <p style="color: var(--gray-700); margin: 0;">
+                                Your question has been submitted. Our scholars will review it and may address it in future clarifications. JazakAllah Khair!
+                            </p>
+                        </div>
+                    `;
+              }, 500);
+            } else {
+              showQuestionMessage(
+                data.message || "Failed to submit question",
+                "error"
+              );
+            }
+          } catch (error) {
+            console.error("Submit question error:", error);
+            showQuestionMessage("Network error. Please try again.", "error");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML =
+              '<i class="fas fa-paper-plane"></i> <span>Submit Question</span>';
+          }
+        });
+
+        function showQuestionMessage(message, type) {
+          questionMessage.textContent = message;
+          questionMessage.className = `message ${type}`;
+          questionMessage.style.display = "block";
+
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            questionMessage.style.display = "none";
+          }, 5000);
+        }
+      }
+
+      // Add CSS animation
+      const style = document.createElement("style");
+      style.textContent = `
+@keyframes successPulse {
+    0% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+    50% { transform: scale(1.01); box-shadow: 0 15px 40px rgba(13, 90, 46, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+}
+`;
+      document.head.appendChild(style);
     </script>
   </body>
 </html>
