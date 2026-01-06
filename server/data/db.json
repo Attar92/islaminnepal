@@ -8,8 +8,8 @@
       "status": "published",
       "createdBy": "System Administrator",
       "lastUpdatedBy": "System Administrator",
-      "createdAt": "2025-12-07T19:32:30.600Z",
-      "updatedAt": "2025-12-07T19:32:30.600Z"
+      "createdAt": "2026-01-06T16:47:36.948Z",
+      "updatedAt": "2026-01-06T16:47:36.948Z"
     },
     {
       "id": 2,
@@ -19,8 +19,30 @@
       "status": "published",
       "createdBy": "System Administrator",
       "lastUpdatedBy": "System Administrator",
-      "createdAt": "2025-12-07T19:32:30.600Z",
-      "updatedAt": "2025-12-07T19:32:30.600Z"
+      "createdAt": "2026-01-06T16:47:36.948Z",
+      "updatedAt": "2026-01-06T16:47:36.948Z"
+    },
+    {
+      "id": 3,
+      "title": "Jihad is a personal spiritual struggle",
+      "description": "Jihad in Islam primarily refers to the personal, internal struggle against sin and striving to live a righteous life. While it can also mean defending oneself or the community, it is not synonymous with 'holy war.' The greater jihad is the struggle to improve oneself and society.",
+      "reference": "Hadith: 'The best jihad is (the struggle) of a person against his own self for the sake of Allah.' Quran 29:69: 'And those who strive for Us - We will surely guide them to Our ways.'",
+      "status": "published",
+      "createdBy": "System Administrator",
+      "lastUpdatedBy": "System Administrator",
+      "createdAt": "2026-01-06T16:47:36.948Z",
+      "updatedAt": "2026-01-06T16:47:36.948Z"
+    },
+    {
+      "id": 4,
+      "title": "Islamic law and human rights",
+      "description": "Islamic law (Sharia) encompasses a wide range of ethical and legal guidelines. While some interpretations have been criticized, many Muslim-majority countries incorporate human rights principles within their legal frameworks. Sharia emphasizes justice, compassion, and the protection of individual rights.",
+      "reference": "Quran 16:90: 'Indeed, Allah commands justice and the doing of good...' Universal Declaration of Human Rights aligns with many Islamic principles.",
+      "status": "published",
+      "createdBy": "System Administrator",
+      "lastUpdatedBy": "System Administrator",
+      "createdAt": "2026-01-06T16:47:36.948Z",
+      "updatedAt": "2026-01-06T16:47:36.948Z"
     }
   ]
 }
