@@ -999,10 +999,6 @@
         .verse-translation {
           font-size: 0.9rem;
         }
-
-        .verse-reference {
-          font-size: 0.9rem;
-        }
       }
 
       .modal {
@@ -1067,10 +1063,6 @@
       .admin-form {
         display: flex;
         flex-direction: column;
-      }
-
-      .form-group {
-        margin-bottom: 20px;
       }
 
       .form-group label {
@@ -2043,15 +2035,6 @@
         position: relative;
       }
 
-      .verse-reference {
-        font-size: 0.9rem;
-        color: var(--gray-600);
-        font-style: italic;
-        text-align: right;
-        margin-top: 0.5rem;
-        font-weight: 600;
-      }
-
       .verse-number {
         background: var(--primary);
         color: white;
@@ -2971,7 +2954,7 @@
           </div>
           <!-- Ask Us Section -->
           <div class="ask-us-section" style="margin-top: 4rem; padding: 2rem">
-            <div class="card glass" style="max-width: 800px; margin: 0 auto">
+            <div class="card glass" style="max-width: 1000px; margin: 0 auto">
               <div
                 class="card-header"
                 style="
@@ -3022,10 +3005,9 @@
                         padding: 1rem;
                         font-size: 1rem;
                         transition: all 0.3s ease;
-                        width: 40.5vw;
-                        max-width: 40.5vw;
-                        min-height: 100px;
-                        max-height: 150px;
+                        width: 100%;
+                        min-height: 150px;
+                        max-height: 200px;
                         resize: vertical;
                       "
                     ></textarea>
@@ -3070,7 +3052,7 @@
                   </div>
 
                   <div
-                    class="form-actions"
+                    class="askform-actions"
                     style="display: flex; gap: 1rem; margin-top: 2rem"
                   >
                     <button
@@ -4338,11 +4320,6 @@
                 </div>
                 <div class="translation-line">
                   ${verse.translation}
-                </div>
-                <div class="verse-reference">
-                  Chapter ${this.currentChapter.chapterNumber}, Verse ${
-              verse.verseNumber
-            }
                 </div>
               </div>
             `;
