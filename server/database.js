@@ -6,7 +6,7 @@ const DB_PATH = path.join(__dirname, 'data', 'db.json');
 const USERS_PATH = path.join(__dirname, 'data', 'users.json');
 const QUESTIONS_PATH = path.join(__dirname, 'data', 'questions.json');
 
-// Enhanced session tracking for single session enforcement
+// session tracking for single session enforcement
 let activeSession = null;
 const SESSION_TIMEOUT = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -111,10 +111,10 @@ function isUserAlreadyLoggedIn(userId) {
 
 // Clean up expired sessions periodically
 setInterval(() => {
-    getActiveSession(); // This will automatically clear expired sessions
-}, 60000); // Check every minute
+    getActiveSession(); // automatically clears expired sessions
+}, 60000); // Check every min
 
-// Helper functions to read/write data
+// functions to read/write data
 async function readData() {
     try {
         await ensureDataDirectory();
