@@ -39,38 +39,6 @@ async function initializeDatabase() {
 
         // Always recreate users file with only admin
         await fs.writeFile(USERS_PATH, JSON.stringify(defaultUsers, null, 2));
-
-        // Database with sample clarifications
-        const defaultData = {
-            allegations: [
-                {
-                    id: 1,
-                    title: "Islam promotes peace, not violence",
-                    description: "Islam is fundamentally a religion of peace. The Quran emphasizes peace, mercy, and justice. The word 'Islam' itself comes from 'Salaam' meaning peace. Verses about fighting are often taken out of context - they were revealed during specific historical circumstances of defense against persecution.",
-                    reference: "Quran 5:32: 'Whoever kills a soul... it is as if he had slain mankind entirely.' Quran 2:190: 'Fight in the way of Allah those who fight you but do not transgress.'",
-                    status: "published",
-                    createdBy: "System Administrator",
-                    lastUpdatedBy: "System Administrator",
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                },
-                {
-                    id: 2,
-                    title: "Women's rights in Islam",
-                    description: "Contrary to popular belief, Islam granted women rights 1400 years ago that were revolutionary for their time. Women in Islam have the right to education, property ownership, business, and choice in marriage. The Prophet Muhammad (PBUH) said: 'Seeking knowledge is obligatory for every Muslim (male and female).'",
-                    reference: "Quran 4:1: 'O mankind, fear your Lord, who created you from one soul...' Quran 33:35: 'For Muslim men and women... for them Allah has prepared forgiveness and great reward.'",
-                    status: "published",
-                    createdBy: "System Administrator",
-                    lastUpdatedBy: "System Administrator",
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                }
-            ]
-        };
-
-        // Always recreate database with fresh data
-        await fs.writeFile(DB_PATH, JSON.stringify(defaultData, null, 2));
-
     } catch (error) {
         console.error('❌ Error initializing database:', error);
         throw error;
